@@ -6,8 +6,8 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #f4f5f7;
-  color: #1a1a2e;
+  background: #0f172a;
+  color: #f8fafc;
   min-height: 100vh;
 }
 
@@ -53,7 +53,7 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 1rem 0 1.25rem;
-  border-bottom: 1px solid #eaecef;
+  border-bottom: 1px solid #1e293b;
   margin-bottom: 1.5rem;
 }
 
@@ -130,7 +130,7 @@ body {
 .form-input {
   width: 100%;
   padding: 0.6rem 0.75rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid #334155;
   border-radius: 8px;
   font-size: 0.9rem;
   outline: none;
@@ -182,14 +182,14 @@ body {
 
 .btn-outline {
   background: transparent;
-  border: 1px solid #d1d5db;
-  color: #374151;
+  border: 1px solid #334155;
+  color: #cbd5e1;
   width: auto;
   padding: 0.35rem 0.75rem;
 }
 
 .btn-outline:hover {
-  background: #f9fafb;
+  background: #1e293b;
 }
 
 .btn-sm {
@@ -211,9 +211,9 @@ body {
 }
 
 .alert-success {
-  background: #f0fdf4;
-  color: #16a34a;
-  border: 1px solid #bbf7d0;
+  background: #064e3b;
+  color: #10b981;
+  border: 1px solid #10b981;
 }
 
 /* ── Table ── */
@@ -232,14 +232,14 @@ body {
   padding: 0.5rem 0.75rem;
   font-size: 0.78rem;
   font-weight: 500;
-  color: #6b7280;
-  border-bottom: 1px solid #e5e7eb;
+  color: #94a3b8;
+  border-bottom: 1px solid #1e293b;
 }
 
 .table td {
   padding: 0.75rem;
-  border-bottom: 1px solid #f3f4f6;
-  color: #374151;
+  border-bottom: 1px solid #334155;
+  color: #cbd5e1;
   vertical-align: middle;
 }
 
@@ -251,7 +251,7 @@ body {
   text-align: center;
   padding: 2rem;
   font-size: 0.88rem;
-  color: #9ca3af;
+  color: #64748b;
 }
 
 /* ── Badges ── */
@@ -264,12 +264,12 @@ body {
   white-space: nowrap;
 }
 
-.badge-green { background: #dcfce7; color: #15803d; }
-.badge-blue  { background: #dbeafe; color: #1d4ed8; }
-.badge-red   { background: #fee2e2; color: #b91c1c; }
+.badge-green { background: #064e3b; color: #10b981; }
+.badge-blue  { background: #0f2942; color: #38bdf8; }
+.badge-red   { background: #450a0a; color: #f87171; }
 
 /* ── Amount ── */
-.amount-in  { color: #16a34a; font-weight: 600; }
+.amount-in  { color: #10b981; font-weight: 600; }
 .amount-out { color: #dc2626; font-weight: 600; }
 
 /* ── Loading ── */
@@ -278,7 +278,7 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  color: #6b7280;
+  color: #94a3b8;
   font-size: 0.9rem;
 }
 
