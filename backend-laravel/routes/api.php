@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\WalletController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
@@ -15,4 +16,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/topup',        [WalletController::class, 'topup']);
     Route::post('/transfer',     [WalletController::class, 'transfer']);
     Route::get('/transactions',  [WalletController::class, 'transactions']);
+    
+    Route::get('/user', function (Request $request) {
+        return response()->json(['user' => $request->user()]);
+    });
 });

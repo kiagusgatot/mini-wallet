@@ -10,16 +10,19 @@ export default function DashboardPage() {
   const navigate              = useNavigate();
   const [balance, setBalance] = useState(null);
   const [transactions, setTransactions] = useState([]);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const fetchData = useCallback(async () => {
     try {
-      const [walletRes, txRes] = await Promise.all([
+      const [walletRes, txRes, userRes] = await Promise.all([
         api.get('/wallet'),
         api.get('/transactions'),
+        api.get('/user'),
       ]);
       setBalance(walletRes.data.balance);
       setTransactions(txRes.data.transactions);
+      setUser(userRes.data.user);
     } catch {
       // 401 ditangani oleh interceptor di api.js
     } finally {
@@ -48,9 +51,12 @@ export default function DashboardPage() {
     <div className="dashboard">
       <header className="dashboard-header">
         <h1>Mini Wallet</h1>
-        <button onClick={handleLogout} className="btn btn-outline btn-sm">
-          Keluar
-        </button>
+        <div className="header-right">
+          {user && <span className="header-greeting">Halo, {user.name} 👋</span>}
+          <button onClick={handleLogout} className="btn btn-outline btn-sm">
+            Keluar
+          </button>
+        </div>
       </header>
 
       <main className="dashboard-content">

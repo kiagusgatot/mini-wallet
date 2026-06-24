@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
 import { useAuth } from '../hooks/useAuth';
 
@@ -71,6 +71,12 @@ export default function LoginPage() {
             {loading ? 'Memproses...' : 'Masuk'}
           </button>
         </form>
+
+        <p style={{ textAlign: 'center', fontSize: '0.85rem', marginTop: '1rem' }}>
+          <Link to="/register" style={{ color: '#4f46e5', textDecoration: 'none' }}>
+            Belum punya akun? Daftar sekarang
+          </Link>
+        </p>
       </div>
     </div>
   );
