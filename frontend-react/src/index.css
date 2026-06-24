@@ -50,6 +50,20 @@ body {
   text-align: center;
 }
 
+.auth-link {
+  color: #fafafa;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.auth-link:hover {
+  color: #10b981;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+
 /* ── Dashboard Layout ── */
 .dashboard {
   max-width: 1024px;

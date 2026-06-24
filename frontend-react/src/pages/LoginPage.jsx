@@ -72,9 +72,10 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <p style={{ textAlign: 'center', fontSize: '0.85rem', marginTop: '1rem' }}>
-          <Link to="/register" style={{ color: '#4f46e5', textDecoration: 'none' }}>
-            Belum punya akun? Daftar sekarang
+        <p style={{ textAlign: 'center', fontSize: '0.85rem', marginTop: '1.25rem', color: '#a1a1aa' }}>
+          Belum punya akun?{' '}
+          <Link to="/register" className="auth-link">
+            Daftar sekarang
           </Link>
         </p>
       </div>

@@ -160,9 +160,10 @@ export default function RegisterPage() {
           </button>
         </form>
 
-        <p style={{ textAlign: 'center', fontSize: '0.85rem', marginTop: '1rem' }}>
-          <Link to="/" style={{ color: '#4f46e5', textDecoration: 'none' }}>
-            Sudah punya akun? Masuk
+        <p style={{ textAlign: 'center', fontSize: '0.85rem', marginTop: '1.25rem', color: '#a1a1aa' }}>
+          Sudah punya akun?{' '}
+          <Link to="/" className="auth-link">
+            Masuk
           </Link>
         </p>
       </div>
