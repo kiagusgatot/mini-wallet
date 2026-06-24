@@ -8,8 +8,8 @@
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background-color: #09090b; /* Deep black-charcoal */
-  color: #fafafa;
+  background-color: #080D16;
+  color: #F8FAFC;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -25,180 +25,181 @@ body {
 }
 
 .auth-card {
-  background: #18181b;
-  border: 1px solid #27272a;
-  border-radius: 8px; /* Sharper radius */
+  background: #111827;
+  border: 1px solid #263241;
+  border-radius: 10px;
   padding: 2.5rem;
   width: 100%;
-  max-width: 400px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  max-width: 420px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
 }
 
 .auth-title {
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: #fafafa;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #F8FAFC;
   margin-bottom: 0.5rem;
   text-align: center;
   letter-spacing: -0.02em;
 }
 
 .auth-subtitle {
-  color: #a1a1aa;
-  font-size: 0.9rem;
+  color: #94A3B8;
+  font-size: 0.95rem;
   margin-bottom: 2rem;
   text-align: center;
+  line-height: 1.5;
 }
-
-.auth-link {
-  color: #fafafa;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-.auth-link:hover {
-  color: #10b981;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
 
 /* ── Dashboard Layout ── */
 .dashboard {
-  max-width: 1024px;
+  max-width: 1080px;
   margin: 0 auto;
-  padding: 2rem 1.5rem;
+  padding: 2.5rem 1.5rem;
 }
 
 .dashboard-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid #27272a;
-  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #263241;
+  margin-bottom: 2.5rem;
 }
 
 .dashboard-header h1 {
   font-size: 1.5rem;
-  font-weight: 600;
-  color: #fafafa;
+  font-weight: 700;
+  color: #F8FAFC;
   letter-spacing: -0.02em;
 }
 
 .header-right {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .header-greeting {
-  font-size: 0.9rem;
-  color: #d4d4d8;
+  font-size: 0.95rem;
+  color: #94A3B8;
   font-weight: 500;
 }
 
 .dashboard-content {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 .forms-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 1.5rem;
+  align-items: flex-start;
 }
 
 /* ── Wallet Card ── */
 .wallet-card {
-  background: #18181b;
-  border: 1px solid #27272a;
-  border-left: 4px solid #10b981; /* Green accent */
-  border-radius: 8px;
-  padding: 2rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(145deg, #18202B 0%, #111827 100%);
+  border: 1px solid #263241;
+  border-left: 4px solid #10B981;
+  border-radius: 10px;
+  padding: 2.25rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .wallet-label {
   font-size: 0.85rem;
-  color: #a1a1aa;
-  margin-bottom: 0.25rem;
+  color: #94A3B8;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .wallet-balance {
-  font-size: 2.5rem;
+  font-size: 2.75rem;
   font-weight: 700;
-  color: #10b981; /* Green text */
+  color: #10B981;
   letter-spacing: -0.02em;
 }
 
 /* ── Standard Cards ── */
 .form-card,
 .table-card {
-  background: #18181b;
-  border: 1px solid #27272a;
-  border-radius: 8px;
+  background: #111827;
+  border: 1px solid #263241;
+  border-radius: 10px;
   padding: 1.75rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .form-card-title {
   font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 1.25rem;
-  color: #fafafa;
+  margin-bottom: 0.5rem;
+  color: #F8FAFC;
+}
+
+.form-card-desc {
+  font-size: 0.85rem;
+  color: #64748B;
+  margin-bottom: 1.5rem;
 }
 
 /* ── Form Elements ── */
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .form-label {
   display: block;
   font-size: 0.85rem;
   font-weight: 500;
-  margin-bottom: 0.4rem;
-  color: #a1a1aa;
+  margin-bottom: 0.5rem;
+  color: #94A3B8;
 }
 
 .form-input {
   width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid #3f3f46;
+  padding: 0.8rem 1rem;
+  border: 1px solid #263241;
   border-radius: 6px;
-  font-size: 0.9rem;
-  color: #fafafa;
-  background: #09090b;
+  font-size: 0.95rem;
+  color: #F8FAFC;
+  background: #080D16;
   outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: all 0.2s ease;
 }
 
 .form-input::placeholder {
-  color: #52525b;
+  color: #64748B;
 }
 
 .form-input:focus {
-  border-color: #10b981; /* Green focus */
-  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.15);
+  border-color: #10B981;
+  background: #0D141F;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
 }
 
 .form-input.input-error {
-  border-color: #ef4444;
+  border-color: #F87171;
 }
 
 .form-input.input-error:focus {
-  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.15);
+  box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.15);
 }
 
 .input-hint {
   font-size: 0.8rem;
-  color: #fca5a5;
-  margin-top: 0.35rem;
+  color: #F87171;
+  margin-top: 0.4rem;
 }
 
 /* ── Buttons ── */
@@ -207,90 +208,112 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.8rem 1.25rem;
   border: 1px solid transparent;
   border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
 .btn-primary {
-  background: #10b981; /* Emerald green */
+  background: #059669;
   color: #ffffff;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: #059669; /* Darker emerald */
+  background: #10B981;
+  transform: translateY(-1px);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn:disabled {
+  background: #1E293B;
+  color: #64748B;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .btn-outline {
   background: transparent;
-  border-color: #3f3f46;
-  color: #d4d4d8;
+  border-color: #263241;
+  color: #94A3B8;
   width: auto;
-  padding: 0.4rem 0.85rem;
+  padding: 0.45rem 1rem;
 }
 
 .btn-outline:hover {
-  background: #27272a;
-  color: #fafafa;
+  background: #18202B;
+  color: #F8FAFC;
+  border-color: #475569;
 }
 
 .btn-sm {
-  font-size: 0.8rem;
-  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.85rem;
+}
+
+/* ── Links ── */
+.auth-link {
+  color: #F8FAFC;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.auth-link:hover {
+  color: #10B981;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 /* ── Alerts ── */
 .alert {
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1rem;
   border-radius: 6px;
-  font-size: 0.85rem;
-  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
   font-weight: 500;
   border-left: 4px solid transparent;
 }
 
 .alert-error {
-  background: rgba(239, 68, 68, 0.1);
-  color: #fca5a5;
-  border-left-color: #ef4444;
+  background: rgba(248, 113, 113, 0.1);
+  color: #FCA5A5;
+  border-left-color: #F87171;
 }
 
 .alert-success {
   background: rgba(16, 185, 129, 0.1);
-  color: #6ee7b7;
-  border-left-color: #10b981;
+  color: #6EE7B7;
+  border-left-color: #10B981;
 }
 
 /* ── Table ── */
 .table-wrapper {
   overflow-x: auto;
-  border-radius: 6px;
-  border: 1px solid #27272a;
+  border-radius: 8px;
+  border: 1px solid #263241;
+  background: #18202B;
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.85rem;
-  background: #18181b;
+  font-size: 0.9rem;
 }
 
 .table th {
   text-align: left;
-  padding: 0.85rem 1rem;
-  font-weight: 500;
-  color: #a1a1aa;
-  border-bottom: 1px solid #27272a;
-  background: #09090b;
+  padding: 1rem 1.25rem;
+  font-weight: 600;
+  color: #94A3B8;
+  border-bottom: 1px solid #263241;
+  background: #111827;
 }
 
 .table th:last-child {
@@ -298,9 +321,9 @@ body {
 }
 
 .table td {
-  padding: 0.85rem 1rem;
-  border-bottom: 1px solid #27272a;
-  color: #e4e4e7;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #263241;
+  color: #E2E8F0;
   vertical-align: middle;
 }
 
@@ -309,14 +332,21 @@ body {
 }
 
 .table tr:hover td {
-  background: #27272a;
+  background: #1A232E;
 }
 
 .empty-state {
   text-align: center;
-  padding: 2.5rem 1rem;
-  font-size: 0.9rem;
-  color: #71717a;
+  padding: 3.5rem 1.5rem;
+  color: #64748B;
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px dashed #263241;
+  border-radius: 8px;
+}
+
+.empty-state p {
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
 }
 
 /* ── Badges ── */
@@ -324,20 +354,20 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.2rem 0.5rem;
+  padding: 0.25rem 0.6rem;
   border-radius: 4px;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 600;
   white-space: nowrap;
 }
 
-.badge-green { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
-.badge-blue  { background: rgba(56, 189, 248, 0.1); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.2); }
-.badge-red   { background: rgba(239, 68, 68, 0.1); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.2); }
+.badge-green { background: rgba(16, 185, 129, 0.15); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.25); }
+.badge-blue  { background: rgba(56, 189, 248, 0.15); color: #38BDF8; border: 1px solid rgba(56, 189, 248, 0.25); }
+.badge-red   { background: rgba(248, 113, 113, 0.15); color: #F87171; border: 1px solid rgba(248, 113, 113, 0.25); }
 
 /* ── Transaction Amounts ── */
-.amount-in  { color: #10b981; font-weight: 500; text-align: right; }
-.amount-out { color: #f87171; font-weight: 500; text-align: right; }
+.amount-in  { color: #10B981; font-weight: 600; text-align: right; }
+.amount-out { color: #F87171; font-weight: 600; text-align: right; }
 
 /* ── Utilities ── */
 .loading {
@@ -345,7 +375,7 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  color: #10b981;
+  color: #10B981;
   font-size: 1rem;
   font-weight: 500;
 }
@@ -359,7 +389,7 @@ body {
   }
   
   .wallet-balance {
-    font-size: 2rem;
+    font-size: 2.25rem;
   }
   
   .auth-card {

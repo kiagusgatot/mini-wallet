@@ -34,7 +34,7 @@ export default function LoginPage() {
     <div className="auth-container">
       <div className="auth-card">
         <h1 className="auth-title">Mini Wallet</h1>
-        <p className="auth-subtitle">Masuk ke akun Anda</p>
+        <p className="auth-subtitle">Kelola saldo dan transaksi digital Anda dengan mudah.</p>
 
         {error && <div className="alert alert-error">{error}</div>}
 
