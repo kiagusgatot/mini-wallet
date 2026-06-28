@@ -18,7 +18,7 @@ export default function RegisterPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const isValid = form.name && form.username && form.email && form.password.length === 6;
+  const isValid = form.name && form.username && form.email && form.password.length >= 6;
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -36,7 +36,9 @@ export default function RegisterPage() {
       
       const res = await api.post('/register', payload);
       login(res.data.token);
-      navigate('/dashboard');
+      
+      // After registration, redirect to create pin
+      navigate('/create-pin');
     } catch (err) {
       setError(err.message);
     } finally {
@@ -65,7 +67,7 @@ export default function RegisterPage() {
           <input type="text" name="phone" className="form-input" placeholder="Nomor HP (Opsional)" value={form.phone} onChange={handleChange} />
         </div>
         <div className="form-group mb-1">
-          <input type="password" name="password" maxLength={6} pattern="\d*" className="form-input" placeholder="Buat PIN 6 Digit" value={form.password} onChange={handleChange} required />
+          <input type="password" name="password" className="form-input" placeholder="Password (min 6 karakter)" value={form.password} onChange={handleChange} required />
         </div>
 
         <motion.button
