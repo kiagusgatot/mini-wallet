@@ -5,9 +5,12 @@ use App\Http\Controllers\WalletController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\PinController;
+
 // Public routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login',    [AuthController::class, 'login']);
+Route::post('/pin/login', [PinController::class, 'loginWithPin']);
 
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {
@@ -20,4 +23,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return response()->json(['user' => $request->user()]);
     });
+
+    // PIN
+    Route::post('/pin/create', [PinController::class, 'createPin']);
+    Route::get('/pin/status', [PinController::class, 'status']);
 });
