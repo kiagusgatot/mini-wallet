@@ -120,7 +120,8 @@ export default function LoginPage() {
                     flexShrink: 0,
                     backgroundColor: isPinFilled ? '#10b981' : 'transparent',
                     border: '2px solid #10b981',
-                    boxSizing: 'border-box'
+                    boxSizing: 'border-box',
+                    transition: 'background-color 0.15s ease'
                   }} />
                 );
               })}
