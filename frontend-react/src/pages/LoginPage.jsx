@@ -107,9 +107,23 @@ export default function LoginPage() {
             </div>
 
             <div className="pin-display">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className={`pin-dot ${i < pin.length ? 'filled' : ''}`} />
-              ))}
+              {[...Array(6)].map((_, i) => {
+                const isPinFilled = i < pin.length;
+                return (
+                  <span key={i} style={{
+                    display: 'block',
+                    width: '14px',
+                    height: '14px',
+                    minWidth: '14px',
+                    minHeight: '14px',
+                    borderRadius: '50%',
+                    flexShrink: 0,
+                    backgroundColor: isPinFilled ? '#10b981' : 'transparent',
+                    border: '2px solid #10b981',
+                    boxSizing: 'border-box'
+                  }} />
+                );
+              })}
             </div>
 
             {loading && <p className="text-center text-muted mb-4">Memverifikasi...</p>}
