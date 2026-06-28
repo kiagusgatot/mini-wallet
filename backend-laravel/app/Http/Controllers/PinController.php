@@ -58,8 +58,20 @@ class PinController extends Controller
 
     public function status(Request $request)
     {
-        $user = $request->user();
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'Email tidak terdaftar'
+            ], 404);
+        }
+
         return response()->json([
+            'exists' => true,
             'has_pin' => !empty($user->pin)
         ]);
     }

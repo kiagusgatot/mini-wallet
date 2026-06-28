@@ -11,6 +11,7 @@ use App\Http\Controllers\PinController;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login',    [AuthController::class, 'login']);
 Route::post('/pin/login', [PinController::class, 'loginWithPin']);
+Route::get('/pin/status', [PinController::class, 'status']);
 
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {
@@ -26,5 +27,4 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // PIN
     Route::post('/pin/create', [PinController::class, 'createPin']);
-    Route::get('/pin/status', [PinController::class, 'status']);
 });

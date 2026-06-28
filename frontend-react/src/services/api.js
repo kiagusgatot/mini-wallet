@@ -53,7 +53,7 @@ api.interceptors.response.use(
 export const pinApi = {
   createPin: (pin) => api.post('/pin/create', { pin }),
   loginWithPin: (email, pin) => api.post('/pin/login', { email, pin }),
-  getPinStatus: () => api.get('/pin/status'),
+  getPinStatus: (email) => api.get(`/pin/status?email=${encodeURIComponent(email)}`),
 };
 
 export default api;
