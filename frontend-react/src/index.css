@@ -199,6 +199,8 @@ html, body {
   border-radius: 50%;
   background: #334155;
   transition: all 0.2s;
+  flex-shrink: 0;
+  display: block;
 }
 
 .pin-dot.filled {
