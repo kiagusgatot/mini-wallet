@@ -5,7 +5,7 @@ import api from '../services/api';
 import PageTransition from '../components/PageTransition';
 import AnimatedCounter from '../components/AnimatedCounter';
 import { motion } from 'framer-motion';
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function DashboardPage() {
   const navigate = useNavigate();
@@ -146,26 +146,26 @@ export default function DashboardPage() {
         <h3 className="font-bold text-dark mb-4" style={{ fontSize: '1rem' }}>Aktivitas 7 Hari</h3>
         <div style={{ width: '100%', height: 180 }}>
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={chartData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
-              <defs>
-                <linearGradient id="colorAmount" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#10b981" stopOpacity={0.2}/>
-                  <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
-                </linearGradient>
-              </defs>
-              <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6B7280' }} dy={10} />
-              <YAxis 
+            <BarChart data={chartData} margin={{ top: 5, right: 0, left: 0, bottom: 5 }}>
+              <XAxis 
+                dataKey="name" 
                 axisLine={false} 
                 tickLine={false} 
-                tick={{ fontSize: 12, fill: '#6B7280' }} 
-                tickFormatter={(val) => val >= 1000 ? `${val/1000}k` : val}
+                tick={{ fontSize: 12, fill: '#9CA3AF' }} 
+                dy={10} 
               />
               <Tooltip 
-                formatter={(value) => [formatCurrency(value), "Nominal"]}
-                contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
+                formatter={(value) => [`Rp ${new Intl.NumberFormat('id-ID', { minimumFractionDigits: 0 }).format(value)}`, "Nominal"]}
+                contentStyle={{ borderRadius: '8px', border: 'none', background: '#1A1A2E', color: '#FFFFFF', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
+                itemStyle={{ color: '#FFFFFF' }}
               />
-              <Area type="monotone" dataKey="amount" stroke="#10b981" strokeWidth={3} fillOpacity={1} fill="url(#colorAmount)" />
-            </AreaChart>
+              <Bar 
+                dataKey="amount" 
+                fill="#10b981" 
+                radius={[6, 6, 0, 0]}
+                activeBar={{ fill: '#059669' }}
+              />
+            </BarChart>
           </ResponsiveContainer>
         </div>
       </div>
