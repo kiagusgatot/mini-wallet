@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, ArrowRightLeft, Clock, User } from 'lucide-react';
+import { Home, ArrowLeftRight, Clock, User } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function BottomNav() {
@@ -7,7 +7,7 @@ export default function BottomNav() {
 
   const navItems = [
     { path: '/dashboard', label: 'Home', icon: Home },
-    { path: '/transfer', label: 'Transfer', icon: ArrowRightLeft },
+    { path: '/transaksi', label: 'Transaksi', icon: ArrowLeftRight },
     { path: '/history', label: 'History', icon: Clock },
     { path: '/profile', label: 'Profile', icon: User },
   ];

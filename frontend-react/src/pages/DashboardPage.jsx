@@ -133,7 +133,7 @@ export default function DashboardPage() {
 
         <motion.button
           whileTap={{ scale: 0.95 }}
-          onClick={() => navigate('/transfer')}
+          onClick={() => navigate('/transaksi')}
           className="btn"
           style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '0.5rem', background: '#FFFFFF', color: '#10b981', border: '1px solid #10b981', borderRadius: '14px' }}
         >

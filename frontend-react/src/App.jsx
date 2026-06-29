@@ -7,6 +7,7 @@ import DashboardPage from './pages/DashboardPage';
 import RegisterPage from './pages/RegisterPage';
 import TopUpPage from './pages/TopUpPage';
 import TransferPage from './pages/TransferPage';
+import TransaksiPage from './pages/TransaksiPage';
 import HistoryPage from './pages/HistoryPage';
 import ProfilePage from './pages/ProfilePage';
 import BottomNav from './components/BottomNav';
@@ -33,6 +34,7 @@ function AnimatedRoutes() {
           <Route path="/dashboard" element={<PrivateRoute><DashboardPage /></PrivateRoute>} />
           <Route path="/topup" element={<PrivateRoute><TopUpPage /></PrivateRoute>} />
           <Route path="/transfer" element={<PrivateRoute><TransferPage /></PrivateRoute>} />
+          <Route path="/transaksi" element={<PrivateRoute><TransaksiPage /></PrivateRoute>} />
           <Route path="/history" element={<PrivateRoute><HistoryPage /></PrivateRoute>} />
           <Route path="/profile" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
           
