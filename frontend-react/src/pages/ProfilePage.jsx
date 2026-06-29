@@ -4,6 +4,7 @@ import { LogOut, User as UserIcon } from 'lucide-react';
 import api from '../services/api';
 import { useAuth } from '../hooks/useAuth';
 import PageTransition from '../components/PageTransition';
+import PageLayout from '../components/PageLayout';
 import { motion } from 'framer-motion';
 
 export default function ProfilePage() {
@@ -28,9 +29,11 @@ export default function ProfilePage() {
 
   return (
     <PageTransition>
-      <div className="flex items-center mb-8 pt-2">
-        <h1 className="font-bold text-dark" style={{ fontSize: '1.5rem' }}>Profil</h1>
-      </div>
+      <PageLayout
+        title="Profil"
+        subtitle="Informasi akun kamu"
+        showBack={false}
+      >
 
       <div className="card text-center mb-6" style={{ padding: '2rem 1.5rem' }}>
         <div style={{
@@ -70,6 +73,7 @@ export default function ProfilePage() {
           </div>
         </motion.button>
       </div>
+      </PageLayout>
     </PageTransition>
   );
 }

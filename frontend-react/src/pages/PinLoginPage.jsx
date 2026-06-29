@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { pinApi } from '../services/api';
 import { useAuth } from '../hooks/useAuth';
 import Numpad from '../components/Numpad';
+import PageLayout from '../components/PageLayout';
 
 export default function PinLoginPage() {
   const navigate = useNavigate();
@@ -107,12 +108,13 @@ export default function PinLoginPage() {
   };
 
   return (
-    <div className="auth-container">
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <h1 className="text-center font-bold mb-2 text-dark" style={{ fontSize: '1.75rem' }}>Mini Wallet</h1>
-        <p className="text-center text-muted mb-8">
-          Masukkan 6 digit PIN kamu
-        </p>
+    <PageLayout
+      title="Masukkan PIN"
+      subtitle="Masukkan PIN 6 digit kamu"
+      showBack={true}
+      backTo="/login"
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', marginTop: '40px' }}>
 
         {error && <div className="alert alert-error">{error}</div>}
 
@@ -152,6 +154,6 @@ export default function PinLoginPage() {
           <Numpad onKeyPress={handlePinPress} onDelete={handlePinDelete} />
         </div>
       </div>
-    </div>
+    </PageLayout>
   );
 }

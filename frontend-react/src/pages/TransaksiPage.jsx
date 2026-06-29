@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Wallet, Send } from 'lucide-react';
+import PageLayout from '../components/PageLayout';
+import PageTransition from '../components/PageTransition';
 
 const TransaksiPage = () => {
   const navigate = useNavigate();
@@ -23,34 +25,11 @@ const TransaksiPage = () => {
   ];
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      background: '#F5F5F7',
-      padding: '24px 20px',
-      maxWidth: '390px',
-      margin: '0 auto',
-      boxSizing: 'border-box',
-    }}>
-
-      {/* Header */}
-      <div style={{ marginBottom: '28px' }}>
-        <h1 style={{
-          fontSize: '24px',
-          fontWeight: 700,
-          color: '#1A1A2E',
-          margin: 0,
-          marginBottom: '4px',
-        }}>
-          Transaksi
-        </h1>
-        <p style={{
-          fontSize: '14px',
-          color: '#6B7280',
-          margin: 0,
-        }}>
-          Pilih jenis transaksi
-        </p>
-      </div>
+    <PageTransition>
+      <PageLayout
+        title="Transaksi"
+        subtitle="Pilih jenis transaksi"
+      >
 
       {/* Card Menu */}
       <div style={{
@@ -120,7 +99,8 @@ const TransaksiPage = () => {
           </motion.div>
         ))}
       </div>
-    </div>
+      </PageLayout>
+    </PageTransition>
   );
 };
 

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowDown, ArrowUpRight, Plus, Send } from 'lucide-react';
 import api from '../services/api';
 import PageTransition from '../components/PageTransition';
+import PageLayout from '../components/PageLayout';
 import AnimatedCounter from '../components/AnimatedCounter';
 import { motion } from 'framer-motion';
 import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer } from 'recharts';
@@ -85,12 +86,10 @@ export default function DashboardPage() {
 
   return (
     <PageTransition>
-      <div className="flex items-center justify-between mb-6 pt-2">
-        <div>
-          <h1 className="font-bold text-dark" style={{ fontSize: '1.25rem' }}>Halo, {data.user?.name ?? 'Pengguna'} 👋</h1>
-          <p className="text-muted" style={{ fontSize: '0.9rem', marginTop: '4px' }}>Selamat datang kembali</p>
-        </div>
-      </div>
+      <PageLayout
+        title={`Halo, ${data.user?.name ?? 'Pengguna'} 👋`}
+        subtitle="Selamat datang kembali"
+      >
 
       <div className="card mb-6" style={{ padding: '1.5rem' }}>
         <p className="text-muted font-medium mb-2" style={{ fontSize: '0.9rem' }}>Total Saldo</p>
@@ -228,6 +227,7 @@ export default function DashboardPage() {
           )}
         </div>
       </div>
+      </PageLayout>
     </PageTransition>
   );
 }

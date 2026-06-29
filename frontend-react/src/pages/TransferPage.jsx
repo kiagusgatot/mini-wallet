@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import PageTransition from '../components/PageTransition';
 import { motion } from 'framer-motion';
-import BackButton from '../components/BackButton';
+import PageLayout from '../components/PageLayout';
 
 export default function TransferPage() {
   const navigate = useNavigate();
@@ -51,12 +51,12 @@ export default function TransferPage() {
 
   return (
     <PageTransition>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px', paddingTop: '8px' }}>
-        <BackButton />
-        <h1 style={{ fontSize: '20px', fontWeight: 700, color: '#1A1A2E', margin: 0 }}>
-          Transfer
-        </h1>
-      </div>
+      <PageLayout
+        title="Transfer"
+        subtitle="Kirim saldo ke pengguna lain"
+        showBack={true}
+        backTo="/transaksi"
+      >
 
       {error && <div className="alert alert-error">{error}</div>}
 
@@ -113,6 +113,7 @@ export default function TransferPage() {
           </motion.button>
         </div>
       </form>
+      </PageLayout>
     </PageTransition>
   );
 }

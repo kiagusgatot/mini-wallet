@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { pinApi } from '../services/api';
 import Numpad from '../components/Numpad';
+import PageLayout from '../components/PageLayout';
 
 export default function CreatePinPage() {
   const navigate = useNavigate();
@@ -43,12 +44,12 @@ export default function CreatePinPage() {
   }, [pin, navigate]);
 
   return (
-    <div className="auth-container">
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <h1 className="text-center font-bold mb-2 text-dark" style={{ fontSize: '1.75rem' }}>Buat PIN Baru</h1>
-        <p className="text-center text-muted mb-8">
-          Buat PIN 6 digit untuk keamanan akun Anda
-        </p>
+    <PageLayout
+      title="Buat PIN"
+      subtitle="Buat PIN 6 digit untuk keamanan akun"
+      showBack={false}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', marginTop: '40px' }}>
 
         {error && <div className="alert alert-error">{error}</div>}
 
@@ -79,6 +80,6 @@ export default function CreatePinPage() {
           <Numpad onKeyPress={handlePinPress} onDelete={handlePinDelete} />
         </div>
       </div>
-    </div>
+    </PageLayout>
   );
 }

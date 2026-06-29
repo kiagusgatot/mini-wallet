@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Clock } from 'lucide-react';
 import api from '../services/api';
 import PageTransition from '../components/PageTransition';
+import PageLayout from '../components/PageLayout';
 
 export default function HistoryPage() {
 
@@ -35,9 +36,11 @@ export default function HistoryPage() {
 
   return (
     <PageTransition>
-      <div className="flex items-center mb-6 pt-2">
-        <h1 className="font-bold text-dark" style={{ fontSize: '1.2rem' }}>Riwayat Transaksi</h1>
-      </div>
+      <PageLayout
+        title="Riwayat"
+        subtitle="Semua riwayat transaksi kamu"
+        showBack={false}
+      >
 
       <div className="flex gap-2 mb-6" style={{ overflowX: 'auto', paddingBottom: '4px' }}>
         <button 
@@ -125,6 +128,7 @@ export default function HistoryPage() {
           </table>
         </div>
       )}
+      </PageLayout>
     </PageTransition>
   );
 }
