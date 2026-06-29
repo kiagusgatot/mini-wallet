@@ -203,7 +203,7 @@ export default function DashboardPage() {
 
         <motion.button
           whileTap={{ scale: 0.95 }}
-          onClick={() => navigate('/transaksi')}
+          onClick={() => navigate('/transfer')}
           style={{
             flex: 1,
             display: 'flex',

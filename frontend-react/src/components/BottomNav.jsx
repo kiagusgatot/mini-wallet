@@ -7,7 +7,7 @@ export default function BottomNav() {
 
   const navItems = [
     { path: '/dashboard', label: 'Beranda', icon: Home },
-    { path: '/transaksi', label: 'Transaksi', icon: ArrowLeftRight },
+    { path: '/transfer', label: 'Transfer', icon: ArrowLeftRight },
     { path: '/history', label: 'Riwayat', icon: Clock },
     { path: '/profile', label: 'Profil', icon: User },
   ];
