@@ -18,7 +18,7 @@ const PageLayout = ({
     }}>
       {/* Header */}
       <div style={{
-        padding: '24px 20px 0px 20px',
+        padding: '24px 24px 0px 24px',
         marginBottom: '20px',
       }}>
         {showBack && (
@@ -50,7 +50,7 @@ const PageLayout = ({
 
       {/* Content */}
       <div style={{
-        padding: '0 20px',
+        padding: '0 24px',
       }}>
         {children}
       </div>
