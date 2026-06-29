@@ -18,6 +18,8 @@ const BackButton = ({ to }) => {
         height: '40px',
         minWidth: '40px',
         minHeight: '40px',
+        maxWidth: '40px',
+        maxHeight: '40px',
         borderRadius: '50%',
         background: '#FFFFFF',
         boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
@@ -26,7 +28,10 @@ const BackButton = ({ to }) => {
         justifyContent: 'center',
         cursor: 'pointer',
         border: 'none',
-        flexShrink: 0
+        flexShrink: 0,
+        flexGrow: 0,
+        boxSizing: 'border-box',
+        aspectRatio: '1 / 1',
       }}
       aria-label="Kembali"
     >

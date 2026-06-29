@@ -121,10 +121,22 @@ export default function DashboardPage() {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)' }}>
             <div style={{
+              width: '40px',
+              height: '40px',
+              minWidth: '40px',
+              minHeight: '40px',
+              maxWidth: '40px',
+              maxHeight: '40px',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+              flexGrow: 0,
+              boxSizing: 'border-box',
+              aspectRatio: '1 / 1',
               background: 'var(--color-primary-light)',
               color: 'var(--color-primary)',
-              padding: '6px',
-              borderRadius: 'var(--radius-full)',
             }}>
               <ArrowDown size={16} />
             </div>
@@ -137,10 +149,22 @@ export default function DashboardPage() {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)' }}>
             <div style={{
+              width: '40px',
+              height: '40px',
+              minWidth: '40px',
+              minHeight: '40px',
+              maxWidth: '40px',
+              maxHeight: '40px',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+              flexGrow: 0,
+              boxSizing: 'border-box',
+              aspectRatio: '1 / 1',
               background: 'var(--color-danger-light)',
               color: 'var(--color-danger)',
-              padding: '6px',
-              borderRadius: 'var(--radius-full)',
             }}>
               <ArrowUpRight size={16} />
             </div>
