@@ -142,8 +142,8 @@ export default function DashboardPage() {
         </motion.button>
       </div>
 
-      <div className="mb-8">
-        <h3 className="font-bold text-dark mb-4" style={{ fontSize: '1.1rem' }}>Aktivitas 7 Hari</h3>
+      <div className="card mb-4" style={{ padding: '20px', border: 'none' }}>
+        <h3 className="font-bold text-dark mb-4" style={{ fontSize: '1rem' }}>Aktivitas 7 Hari</h3>
         <div style={{ width: '100%', height: 180 }}>
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={chartData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
@@ -170,58 +170,60 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="font-bold text-dark" style={{ fontSize: '1.1rem' }}>Transaksi Terbaru</h3>
-        <button onClick={() => navigate('/history')} style={{ background: 'none', border: 'none', color: '#10b981', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer' }}>Lihat Semua</button>
-      </div>
+      <div className="card mb-4" style={{ padding: '20px', border: 'none' }}>
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="font-bold text-dark" style={{ fontSize: '1rem' }}>Transaksi Terbaru</h3>
+          <button onClick={() => navigate('/history')} style={{ background: 'none', border: 'none', color: '#10b981', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer' }}>Lihat Semua</button>
+        </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        {recentTransactions.length === 0 ? (
-          <p className="text-center text-muted py-4">Belum ada transaksi</p>
-        ) : (
-          recentTransactions.map((tx) => {
-            const isIncome = tx.type === 'in';
-            const avatarBg = isIncome ? 'rgba(16,185,129,0.1)' : 'rgba(239,68,68,0.1)';
-            const avatarColor = isIncome ? '#10b981' : '#ef4444';
-            const sign = isIncome ? '+' : '-';
-            const title = isIncome ? 'Top Up' : 'Transfer';
-            
-            return (
-              <div key={tx.id} className="flex items-center justify-between" style={{ padding: '0.5rem 0' }}>
-                <div className="flex items-center gap-4">
-                  <div style={{
-                    width: 44, height: 44, borderRadius: '50%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    background: avatarBg, color: avatarColor, fontWeight: 700, fontSize: '1.1rem'
-                  }}>
-                    {getInitials(title)}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          {recentTransactions.length === 0 ? (
+            <p className="text-center text-muted py-4">Belum ada transaksi</p>
+          ) : (
+            recentTransactions.map((tx) => {
+              const isIncome = tx.type === 'in';
+              const avatarBg = isIncome ? 'rgba(16,185,129,0.1)' : 'rgba(239,68,68,0.1)';
+              const avatarColor = isIncome ? '#10b981' : '#ef4444';
+              const sign = isIncome ? '+' : '-';
+              const title = isIncome ? 'Top Up' : 'Transfer';
+              
+              return (
+                <div key={tx.id} className="flex items-center justify-between" style={{ padding: '0.5rem 0' }}>
+                  <div className="flex items-center gap-4">
+                    <div style={{
+                      width: 44, height: 44, borderRadius: '50%',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      background: avatarBg, color: avatarColor, fontWeight: 700, fontSize: '1.1rem'
+                    }}>
+                      {getInitials(title)}
+                    </div>
+                    <div>
+                      <p className="font-bold text-dark" style={{ fontSize: '1rem' }}>{title}</p>
+                      <p className="text-muted" style={{ fontSize: '0.8rem', marginTop: '2px' }}>{new Date(tx.created_at).toLocaleDateString('id-ID')}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-bold text-dark" style={{ fontSize: '1rem' }}>{title}</p>
-                    <p className="text-muted" style={{ fontSize: '0.8rem', marginTop: '2px' }}>{new Date(tx.created_at).toLocaleDateString('id-ID')}</p>
+                  <div className="text-right">
+                    <p className={`font-bold ${isIncome ? 'text-primary' : 'text-danger'}`} style={{ fontSize: '1rem' }}>
+                      {sign}{formatCurrency(tx.amount)}
+                    </p>
+                    <span style={{
+                      display: 'inline-block',
+                      background: avatarBg,
+                      color: avatarColor,
+                      fontSize: '0.65rem',
+                      fontWeight: 600,
+                      padding: '2px 8px',
+                      borderRadius: '12px',
+                      marginTop: '4px'
+                    }}>
+                      {title}
+                    </span>
                   </div>
                 </div>
-                <div className="text-right">
-                  <p className={`font-bold ${isIncome ? 'text-primary' : 'text-danger'}`} style={{ fontSize: '1rem' }}>
-                    {sign}{formatCurrency(tx.amount)}
-                  </p>
-                  <span style={{
-                    display: 'inline-block',
-                    background: avatarBg,
-                    color: avatarColor,
-                    fontSize: '0.65rem',
-                    fontWeight: 600,
-                    padding: '2px 8px',
-                    borderRadius: '12px',
-                    marginTop: '4px'
-                  }}>
-                    {title}
-                  </span>
-                </div>
-              </div>
-            );
-          })
-        )}
+              );
+            })
+          )}
+        </div>
       </div>
     </PageTransition>
   );
