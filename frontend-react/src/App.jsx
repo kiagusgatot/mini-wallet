@@ -125,6 +125,8 @@ export default function App() {
         overflow: 'hidden',
         background: 'var(--color-bg)',
         boxShadow: 'var(--shadow-lg)',
+        boxSizing: 'border-box',
+        width: '100%',
       }}>
         <AnimatedRoutes />
       </div>

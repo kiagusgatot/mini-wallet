@@ -15,6 +15,10 @@ const PageLayout = ({
       minHeight: '100vh',
       background: 'var(--color-surface)',
       paddingBottom: 'var(--bottom-nav-height)',
+      width: '100%',
+      maxWidth: 'var(--app-max-width)',
+      overflow: 'hidden',
+      boxSizing: 'border-box',
     }}>
       {/* Header */}
       {(title || showBack) && (

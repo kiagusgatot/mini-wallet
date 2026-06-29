@@ -11,6 +11,10 @@ const Skeleton = ({
       height,
       borderRadius,
       flexShrink: 0,
+      maxWidth: '100%',
+      overflow: 'hidden',
+      display: 'block',
+      boxSizing: 'border-box',
       ...style,
     }}
   />

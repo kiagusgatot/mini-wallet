@@ -1,7 +1,13 @@
 import Skeleton from '../Skeleton';
 
 const DashboardSkeleton = () => (
-  <div style={{ padding: 'var(--space-lg) var(--app-padding-x)' }}>
+  <div style={{ 
+    width: '100%',
+    maxWidth: '100%',
+    overflow: 'hidden',
+    boxSizing: 'border-box',
+    padding: '0 var(--app-padding-x)' 
+  }}>
 
     {/* Skeleton Wallet Card */}
     <div style={{
@@ -54,6 +60,8 @@ const DashboardSkeleton = () => (
         alignItems: 'flex-end',
         gap: '8px',
         height: '100px',
+        overflow: 'hidden',
+        width: '100%',
       }}>
         {[40, 70, 30, 90, 50, 80, 60].map(
           (h, i) => (
@@ -62,6 +70,7 @@ const DashboardSkeleton = () => (
             width="100%"
             height={`${h}px`}
             borderRadius="6px 6px 0 0"
+            style={{ flexShrink: 1 }}
           />
         ))}
       </div>
@@ -87,7 +96,11 @@ const DashboardSkeleton = () => (
             width="40px" 
             height="40px"
             borderRadius="50%"
-            style={{ flexShrink: 0 }}
+            style={{ 
+              flexShrink: 0,
+              minWidth: '40px',
+              minHeight: '40px',
+            }}
           />
           <div style={{ flex: 1 }}>
             <Skeleton width="60%" height="12px"

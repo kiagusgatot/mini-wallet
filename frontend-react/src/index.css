@@ -91,4 +91,7 @@ button {
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: var(--radius-sm);
+  overflow: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
 }
