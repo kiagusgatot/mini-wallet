@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { LogOut, User as UserIcon } from 'lucide-react';
 import api from '../services/api';
 import { useAuth } from '../hooks/useAuth';
-import PageTransition from '../components/PageTransition';
 import PageLayout from '../components/PageLayout';
+import Card from '../components/Card';
 import { motion } from 'framer-motion';
 
 export default function ProfilePage() {
@@ -28,52 +28,70 @@ export default function ProfilePage() {
   };
 
   return (
-    <PageTransition>
-      <PageLayout
-        title="Profil"
-        subtitle="Informasi akun kamu"
-        showBack={false}
-      >
-
-      <div className="card text-center mb-6" style={{ padding: '2rem 1.5rem' }}>
+    <PageLayout
+      title="Profil"
+      subtitle="Informasi akun kamu"
+    >
+      {/* User Info Card */}
+      <Card style={{ textAlign: 'center', marginBottom: 'var(--space-md)' }}>
         <div style={{
-          width: 80, height: 80, borderRadius: '50%', backgroundColor: 'rgba(16,185,129,0.1)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#10b981',
-          margin: '0 auto 1rem'
+          width: 80,
+          height: 80,
+          borderRadius: 'var(--radius-full)',
+          background: 'var(--color-primary-light)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'var(--color-primary)',
+          margin: '0 auto var(--space-md)',
         }}>
           <UserIcon size={40} aria-hidden="true" />
         </div>
-        <h2 className="font-bold text-dark mb-1" style={{ fontSize: '1.25rem' }}>{user?.name || 'Memuat...'}</h2>
-        <p className="text-muted" style={{ fontSize: '0.9rem' }}>{user?.email}</p>
-        <p className="text-muted" style={{ fontSize: '0.85rem', marginTop: '0.5rem' }}>@{user?.username}</p>
-      </div>
+        <h2 style={{
+          fontSize: 'var(--text-xl)',
+          fontWeight: 'var(--font-bold)',
+          color: 'var(--color-text-primary)',
+          marginBottom: 'var(--space-xs)',
+        }}>
+          {user?.name || 'Memuat...'}
+        </h2>
+        <p style={{
+          fontSize: 'var(--text-sm)',
+          color: 'var(--color-text-secondary)',
+        }}>
+          {user?.email}
+        </p>
+        <p style={{
+          fontSize: 'var(--text-sm)',
+          color: 'var(--color-text-muted)',
+          marginTop: 'var(--space-xs)',
+        }}>
+          @{user?.username}
+        </p>
+      </Card>
 
-      <div className="card p-0" style={{ overflow: 'hidden', padding: 0 }}>
+      {/* Logout */}
+      <Card padding="0" style={{ overflow: 'hidden' }}>
         <motion.button
           aria-label="Keluar dari akun"
-          whileTap={{ backgroundColor: 'rgba(239,68,68,0.1)' }}
+          whileTap={{ backgroundColor: '#FEE2E2' }}
           onClick={handleLogout}
           style={{
             width: '100%',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '1.25rem 1.5rem',
+            gap: 'var(--space-md)',
+            padding: '16px 20px',
             background: 'transparent',
-            border: 'none',
-            color: '#ef4444',
-            fontSize: '1rem',
-            fontWeight: 500,
-            cursor: 'pointer'
+            color: 'var(--color-danger)',
+            fontSize: 'var(--text-base)',
+            fontWeight: 'var(--font-medium)',
           }}
         >
-          <div className="flex items-center gap-3">
-            <LogOut size={20} />
-            Keluar Akun
-          </div>
+          <LogOut size={20} />
+          Keluar Akun
         </motion.button>
-      </div>
-      </PageLayout>
-    </PageTransition>
+      </Card>
+    </PageLayout>
   );
 }

@@ -19,13 +19,14 @@ export default function BottomNav() {
       left: '50%',
       transform: 'translateX(-50%)',
       width: '100%',
-      maxWidth: '390px',
-      backgroundColor: '#FFFFFF',
-      borderTop: '1px solid #E5E7EB',
-      display: 'flex',
-      justifyContent: 'space-around',
-      padding: '0.75rem 0',
-      zIndex: 50
+      maxWidth: 'var(--app-max-width)',
+      height: 'var(--bottom-nav-height)',
+      background: 'var(--color-bg)',
+      borderTop: '1px solid var(--color-border)',
+      display: 'grid',
+      gridTemplateColumns: 'repeat(4, 1fr)',
+      alignItems: 'center',
+      zIndex: 50,
     }}>
       {navItems.map((item) => {
         const isActive = location.pathname === item.path;
@@ -39,13 +40,18 @@ export default function BottomNav() {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              justifyContent: 'center',
               textDecoration: 'none',
-              color: isActive ? '#10b981' : '#9CA3AF',
-              position: 'relative'
+              color: isActive ? 'var(--color-primary)' : 'var(--color-text-muted)',
+              position: 'relative',
+              gap: 'var(--space-xs)',
             }}
           >
-            <Icon size={24} />
-            <span style={{ fontSize: '0.7rem', marginTop: '0.25rem', fontWeight: isActive ? 600 : 400 }}>
+            <Icon size={22} />
+            <span style={{
+              fontSize: 'var(--text-xs)',
+              fontWeight: isActive ? 'var(--font-semibold)' : 'var(--font-regular)',
+            }}>
               {item.label}
             </span>
             {isActive && (
@@ -53,11 +59,11 @@ export default function BottomNav() {
                 layoutId="bottom-nav-indicator"
                 style={{
                   position: 'absolute',
-                  top: '-12px',
+                  top: '-1px',
                   width: '24px',
                   height: '3px',
-                  backgroundColor: '#10b981',
-                  borderRadius: '2px'
+                  background: 'var(--color-primary)',
+                  borderRadius: '2px',
                 }}
               />
             )}

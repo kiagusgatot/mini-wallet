@@ -1,56 +1,64 @@
 import BackButton from './BackButton';
 
 const PageLayout = ({ 
-  title, 
-  subtitle, 
+  title,
+  subtitle,
   showBack = false,
   backTo,
-  children 
+  rightElement,
+  children,
+  noPadding = false,
 }) => {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#F5F5F7',
-      maxWidth: '390px',
-      margin: '0 auto',
-      boxSizing: 'border-box',
-      paddingBottom: '80px',
+      background: 'var(--color-bg)',
+      paddingBottom: 'var(--bottom-nav-height)',
     }}>
       {/* Header */}
-      <div style={{
-        padding: '24px 24px 0px 24px',
-        marginBottom: '20px',
-      }}>
-        {showBack && (
-          <div style={{ marginBottom: '16px' }}>
-            <BackButton to={backTo} />
+      {(title || showBack) && (
+        <div style={{
+          padding: 'var(--app-padding-top) var(--app-padding-x) 0',
+          marginBottom: 'var(--space-lg)',
+        }}>
+          {showBack && (
+            <div style={{ marginBottom: 'var(--space-md)' }}>
+              <BackButton to={backTo} />
+            </div>
+          )}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+          }}>
+            <div>
+              {title && (
+                <h1 style={{
+                  fontSize: 'var(--text-2xl)',
+                  fontWeight: 'var(--font-bold)',
+                  color: 'var(--color-text-primary)',
+                  marginBottom: subtitle ? 'var(--space-xs)' : 0,
+                }}>
+                  {title}
+                </h1>
+              )}
+              {subtitle && (
+                <p style={{
+                  fontSize: 'var(--text-sm)',
+                  color: 'var(--color-text-secondary)',
+                }}>
+                  {subtitle}
+                </p>
+              )}
+            </div>
+            {rightElement && rightElement}
           </div>
-        )}
-        {title && (
-          <h1 style={{
-            fontSize: '24px',
-            fontWeight: 700,
-            color: '#1A1A2E',
-            margin: 0,
-            marginBottom: subtitle ? '4px' : '0',
-          }}>
-            {title}
-          </h1>
-        )}
-        {subtitle && (
-          <p style={{
-            fontSize: '14px',
-            color: '#6B7280',
-            margin: 0,
-          }}>
-            {subtitle}
-          </p>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Content */}
-      <div style={{
-        padding: '0 24px',
+      <div style={noPadding ? {} : {
+        padding: '0 var(--app-padding-x)',
       }}>
         {children}
       </div>

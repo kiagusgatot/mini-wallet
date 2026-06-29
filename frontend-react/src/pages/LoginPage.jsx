@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { pinApi } from '../services/api';
-import { motion } from 'framer-motion';
+import Button from '../components/Button';
+import Card from '../components/Card';
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -15,10 +16,7 @@ export default function LoginPage() {
     setError('');
     setLoading(true);
     try {
-      // Check PIN status
       const res = await pinApi.getPinStatus(email);
-      
-      // Valid email, store in localStorage
       localStorage.setItem('login_email', email);
       
       if (res.data.has_pin) {
@@ -34,46 +32,82 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="auth-container">
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <h1 className="text-center font-bold mb-2 text-dark" style={{ fontSize: '1.75rem' }}>Mini Wallet</h1>
-        <p className="text-center text-muted mb-8">
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      padding: '0 var(--app-padding-x)',
+      background: 'var(--color-bg)',
+    }}>
+      <div style={{ marginBottom: 'var(--space-xl)' }}>
+        <h1 style={{
+          fontSize: 'var(--text-3xl)',
+          fontWeight: 'var(--font-bold)',
+          color: 'var(--color-text-primary)',
+          textAlign: 'center',
+          marginBottom: 'var(--space-sm)',
+        }}>
+          Mini Wallet
+        </h1>
+        <p style={{
+          fontSize: 'var(--text-base)',
+          color: 'var(--color-text-secondary)',
+          textAlign: 'center',
+        }}>
           Masukkan email untuk melanjutkan
         </p>
+      </div>
 
-        {error && <div className="alert alert-error">{error}</div>}
+      {error && <div className="alert-error">{error}</div>}
 
-        <form onSubmit={submitEmail}>
-          <div className="form-group">
-            <label htmlFor="email" className="form-label">Alamat Email</label>
+      <form onSubmit={submitEmail}>
+        <Card style={{ marginBottom: 'var(--space-lg)' }}>
+          <div style={{ marginBottom: 'var(--space-sm)' }}>
+            <label htmlFor="email" style={{
+              display: 'block',
+              fontSize: 'var(--text-sm)',
+              fontWeight: 'var(--font-medium)',
+              color: 'var(--color-text-secondary)',
+              marginBottom: 'var(--space-sm)',
+            }}>
+              Alamat Email
+            </label>
             <input
               id="email"
               type="email"
-              className="form-input"
               value={email}
               onChange={(e) => { setEmail(e.target.value); setError(''); }}
               placeholder="contoh@email.com"
               required
             />
           </div>
-          
-          <motion.button
-            whileTap={{ scale: 0.98 }}
-            type="submit"
-            className="btn btn-primary mt-4"
-            disabled={!email || loading}
-          >
-            {loading ? 'Memproses...' : 'Lanjut'}
-          </motion.button>
+        </Card>
+        
+        <Button
+          type="submit"
+          disabled={!email}
+          loading={loading}
+        >
+          Lanjut
+        </Button>
 
-          <p className="text-center text-muted" style={{ fontSize: '0.85rem', marginTop: '1.5rem' }}>
-            Belum punya akun?{' '}
-            <Link to="/register" className="text-primary font-medium" style={{ textDecoration: 'none' }}>
-              Daftar
-            </Link>
-          </p>
-        </form>
-      </div>
+        <p style={{
+          textAlign: 'center',
+          fontSize: 'var(--text-sm)',
+          color: 'var(--color-text-secondary)',
+          marginTop: 'var(--space-lg)',
+        }}>
+          Belum punya akun?{' '}
+          <Link to="/register" style={{
+            color: 'var(--color-primary)',
+            fontWeight: 'var(--font-semibold)',
+            textDecoration: 'none',
+          }}>
+            Daftar
+          </Link>
+        </p>
+      </form>
     </div>
   );
 }

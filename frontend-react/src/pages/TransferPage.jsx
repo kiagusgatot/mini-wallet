@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
-import PageTransition from '../components/PageTransition';
-import { motion } from 'framer-motion';
 import PageLayout from '../components/PageLayout';
+import Card from '../components/Card';
+import Button from '../components/Button';
 
 export default function TransferPage() {
   const navigate = useNavigate();
@@ -49,71 +49,57 @@ export default function TransferPage() {
 
   const isValid = form.to && form.amount && Number(form.amount) >= 10000;
 
+  const fields = [
+    { id: 'to', label: 'Email / Username Tujuan', type: 'text', placeholder: 'Email atau username penerima', required: true },
+    { id: 'amount', label: 'Nominal (Rp)', type: 'number', placeholder: 'Masukkan nominal (min. Rp 10.000)', required: true, min: '10000' },
+    { id: 'description', label: 'Catatan (Opsional)', type: 'text', placeholder: 'Tambahkan catatan (opsional)', required: false },
+  ];
+
   return (
-    <PageTransition>
-      <PageLayout
-        title="Transfer"
-        subtitle="Kirim saldo ke pengguna lain"
-        showBack={true}
-        backTo="/transaksi"
-      >
+    <PageLayout
+      title="Transfer"
+      subtitle="Kirim saldo ke pengguna lain"
+      showBack={true}
+      backTo="/transaksi"
+    >
+      {error && <div className="alert-error">{error}</div>}
 
-      {error && <div className="alert alert-error">{error}</div>}
-
-      <form onSubmit={handleTransfer} style={{ display: 'flex', flexDirection: 'column', height: '100%', flex: 1 }}>
-        <div className="card mb-6">
-          <div className="form-group">
-            <label htmlFor="to" className="form-label">Email / No. HP Tujuan</label>
-            <input
-              id="to"
-              type="text"
-              className="form-input"
-              value={form.to}
-              onChange={(e) => setForm({ ...form, to: e.target.value })}
-              placeholder="Email atau username penerima"
-              required
-            />
+      <form onSubmit={handleTransfer} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-lg)' }}>
+        <Card>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
+            {fields.map((field) => (
+              <div key={field.id}>
+                <label htmlFor={field.id} style={{
+                  display: 'block',
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: 'var(--font-medium)',
+                  color: 'var(--color-text-secondary)',
+                  marginBottom: 'var(--space-xs)',
+                }}>
+                  {field.label}
+                </label>
+                <input
+                  id={field.id}
+                  type={field.type}
+                  value={form[field.id]}
+                  onChange={(e) => setForm({ ...form, [field.id]: e.target.value })}
+                  placeholder={field.placeholder}
+                  required={field.required}
+                  min={field.min}
+                />
+              </div>
+            ))}
           </div>
+        </Card>
 
-          <div className="form-group">
-            <label htmlFor="amount" className="form-label">Nominal (Rp)</label>
-            <input
-              id="amount"
-              type="number"
-              className="form-input"
-              value={form.amount}
-              onChange={(e) => setForm({ ...form, amount: e.target.value })}
-              placeholder="Masukkan nominal (min. Rp 10.000)"
-              min="10000"
-              required
-            />
-          </div>
-
-          <div className="form-group mb-0">
-            <label htmlFor="description" className="form-label">Catatan (Opsional)</label>
-            <input
-              id="description"
-              type="text"
-              className="form-input"
-              value={form.description}
-              onChange={(e) => setForm({ ...form, description: e.target.value })}
-              placeholder="Tambahkan catatan (opsional)"
-            />
-          </div>
-        </div>
-
-        <div style={{ marginTop: 'auto' }}>
-          <motion.button
-            whileTap={{ scale: 0.98 }}
-            type="submit"
-            className="btn btn-primary"
-            disabled={loading || !isValid}
-          >
-            {loading ? 'Memproses...' : 'Kirim Transfer'}
-          </motion.button>
-        </div>
+        <Button
+          type="submit"
+          disabled={loading || !isValid}
+          loading={loading}
+        >
+          Kirim Transfer
+        </Button>
       </form>
-      </PageLayout>
-    </PageTransition>
+    </PageLayout>
   );
 }

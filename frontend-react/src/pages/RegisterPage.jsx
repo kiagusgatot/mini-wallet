@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
 import { useAuth } from '../hooks/useAuth';
-import { motion } from 'framer-motion';
+import Button from '../components/Button';
+import Card from '../components/Card';
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -37,8 +38,6 @@ export default function RegisterPage() {
       const res = await api.post('/register', payload);
       login(res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data.user || {}));
-      
-      // After registration, redirect to create pin
       navigate('/create-pin');
     } catch (err) {
       setError(err.message);
@@ -47,48 +46,93 @@ export default function RegisterPage() {
     }
   };
 
+  const fields = [
+    { name: 'name', type: 'text', placeholder: 'Nama Lengkap', required: true },
+    { name: 'username', type: 'text', placeholder: 'Username', required: true },
+    { name: 'email', type: 'email', placeholder: 'contoh@email.com', required: true },
+    { name: 'phone', type: 'text', placeholder: 'Nomor HP (Opsional)', required: false },
+    { name: 'password', type: 'password', placeholder: 'Password (min 6 karakter)', required: true },
+  ];
+
   return (
-    <div className="auth-container" style={{ padding: '2rem 1.5rem' }}>
-      <h1 className="text-center font-bold mb-2 text-dark" style={{ fontSize: '1.5rem' }}>Buat Akun</h1>
-      <p className="text-center text-muted mb-6" style={{ fontSize: '0.9rem' }}>Daftar untuk mulai bertransaksi</p>
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      padding: 'var(--space-xl) var(--app-padding-x)',
+      background: 'var(--color-bg)',
+    }}>
+      <div style={{ marginBottom: 'var(--space-lg)' }}>
+        <h1 style={{
+          fontSize: 'var(--text-2xl)',
+          fontWeight: 'var(--font-bold)',
+          color: 'var(--color-text-primary)',
+          textAlign: 'center',
+          marginBottom: 'var(--space-xs)',
+        }}>
+          Buat Akun
+        </h1>
+        <p style={{
+          fontSize: 'var(--text-base)',
+          color: 'var(--color-text-secondary)',
+          textAlign: 'center',
+        }}>
+          Daftar untuk mulai bertransaksi
+        </p>
+      </div>
 
-      {error && <div className="alert alert-error">{error}</div>}
+      {error && <div className="alert-error">{error}</div>}
 
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-        <div className="form-group mb-1">
-          <label htmlFor="name" className="form-label" style={{ display: 'none' }}>Nama Lengkap</label>
-          <input id="name" type="text" name="name" className="form-input" placeholder="Nama Lengkap" value={form.name} onChange={handleChange} required />
-        </div>
-        <div className="form-group mb-1">
-          <label htmlFor="username" className="form-label" style={{ display: 'none' }}>Username</label>
-          <input id="username" type="text" name="username" className="form-input" placeholder="Username" value={form.username} onChange={handleChange} required />
-        </div>
-        <div className="form-group mb-1">
-          <label htmlFor="email" className="form-label" style={{ display: 'none' }}>Email</label>
-          <input id="email" type="email" name="email" className="form-input" placeholder="contoh@email.com" value={form.email} onChange={handleChange} required />
-        </div>
-        <div className="form-group mb-1">
-          <label htmlFor="phone" className="form-label" style={{ display: 'none' }}>Nomor HP</label>
-          <input id="phone" type="text" name="phone" className="form-input" placeholder="Nomor HP (Opsional)" value={form.phone} onChange={handleChange} />
-        </div>
-        <div className="form-group mb-1">
-          <label htmlFor="password" className="form-label" style={{ display: 'none' }}>Password</label>
-          <input id="password" type="password" name="password" className="form-input" placeholder="Password (min 6 karakter)" value={form.password} onChange={handleChange} required />
-        </div>
+      <form onSubmit={handleSubmit}>
+        <Card style={{ marginBottom: 'var(--space-lg)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
+            {fields.map((field) => (
+              <div key={field.name}>
+                <label htmlFor={field.name} style={{
+                  display: 'block',
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: 'var(--font-medium)',
+                  color: 'var(--color-text-secondary)',
+                  marginBottom: 'var(--space-xs)',
+                }}>
+                  {field.placeholder.replace(' (Opsional)', '').replace(' (min 6 karakter)', '')}
+                </label>
+                <input
+                  id={field.name}
+                  type={field.type}
+                  name={field.name}
+                  value={form[field.name]}
+                  onChange={handleChange}
+                  placeholder={field.placeholder}
+                  required={field.required}
+                />
+              </div>
+            ))}
+          </div>
+        </Card>
 
-        <motion.button
-          whileTap={{ scale: 0.98 }}
+        <Button
           type="submit"
-          className="btn btn-primary mt-4"
-          disabled={loading || !isValid}
+          disabled={!isValid}
+          loading={loading}
         >
-          {loading ? 'Memproses...' : 'Daftar Sekarang'}
-        </motion.button>
+          Daftar Sekarang
+        </Button>
       </form>
 
-      <p className="text-center text-muted" style={{ fontSize: '0.85rem', marginTop: '1.5rem' }}>
+      <p style={{
+        textAlign: 'center',
+        fontSize: 'var(--text-sm)',
+        color: 'var(--color-text-secondary)',
+        marginTop: 'var(--space-lg)',
+      }}>
         Sudah punya akun?{' '}
-        <Link to="/" className="text-primary font-medium" style={{ textDecoration: 'none' }}>
+        <Link to="/" style={{
+          color: 'var(--color-primary)',
+          fontWeight: 'var(--font-semibold)',
+          textDecoration: 'none',
+        }}>
           Masuk
         </Link>
       </p>

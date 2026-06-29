@@ -32,7 +32,7 @@ export default function CreatePinPage() {
         navigate('/dashboard');
       } catch (err) {
         setError(err.message);
-        setPin(''); // Reset PIN on error
+        setPin('');
       } finally {
         setLoading(false);
       }
@@ -49,36 +49,45 @@ export default function CreatePinPage() {
       subtitle="Buat PIN 6 digit untuk keamanan akun"
       showBack={false}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', marginTop: '40px' }}>
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginTop: 'var(--space-xl)',
+      }}>
+        {error && <div className="alert-error" style={{ width: '100%' }}>{error}</div>}
 
-        {error && <div className="alert alert-error">{error}</div>}
-
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-          <div className="pin-display">
-            {[...Array(6)].map((_, i) => {
-              const isPinFilled = i < pin.length;
-              return (
-                <span key={i} style={{
-                  display: 'block',
-                  width: '14px',
-                  height: '14px',
-                  minWidth: '14px',
-                  minHeight: '14px',
-                  borderRadius: '50%',
-                  flexShrink: 0,
-                  backgroundColor: isPinFilled ? '#10b981' : 'transparent',
-                  border: '2px solid #10b981',
-                  boxSizing: 'border-box',
-                  transition: 'background-color 0.15s ease'
-                }} />
-              );
-            })}
-          </div>
-
-          {loading && <p className="text-center text-muted mb-4">Menyimpan PIN...</p>}
-
-          <Numpad onKeyPress={handlePinPress} onDelete={handlePinDelete} />
+        <div style={{
+          display: 'flex',
+          gap: 'var(--space-md)',
+          justifyContent: 'center',
+          marginBottom: 'var(--space-xl)',
+        }}>
+          {[...Array(6)].map((_, i) => (
+            <span key={i} style={{
+              display: 'block',
+              width: '14px',
+              height: '14px',
+              borderRadius: 'var(--radius-full)',
+              backgroundColor: i < pin.length ? 'var(--color-primary)' : 'transparent',
+              border: '2px solid var(--color-primary)',
+              transition: 'background-color 0.15s ease',
+            }} />
+          ))}
         </div>
+
+        {loading && (
+          <p style={{
+            textAlign: 'center',
+            color: 'var(--color-text-secondary)',
+            marginBottom: 'var(--space-md)',
+            fontSize: 'var(--text-sm)',
+          }}>
+            Menyimpan PIN...
+          </p>
+        )}
+
+        <Numpad onKeyPress={handlePinPress} onDelete={handlePinDelete} />
       </div>
     </PageLayout>
   );

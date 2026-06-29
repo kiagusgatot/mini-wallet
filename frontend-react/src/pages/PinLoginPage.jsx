@@ -91,7 +91,7 @@ export default function PinLoginPage() {
           setError('Terlalu banyak percobaan. Coba lagi dalam 30 detik');
         }
         
-        setPin(''); // Reset PIN on error
+        setPin('');
       } finally {
         setLoading(false);
       }
@@ -114,45 +114,69 @@ export default function PinLoginPage() {
       showBack={true}
       backTo="/login"
     >
-      <div style={{ display: 'flex', flexDirection: 'column', marginTop: '40px' }}>
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginTop: 'var(--space-lg)',
+      }}>
+        {error && <div className="alert-error" style={{ width: '100%' }}>{error}</div>}
 
-        {error && <div className="alert alert-error">{error}</div>}
-
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-          <div className="text-center mb-6">
-            <span className="text-muted" style={{ fontSize: '0.9rem' }}>{email}</span>
-            <button 
-              onClick={switchAccount} 
-              style={{ background: 'none', border: 'none', color: '#10b981', marginLeft: '0.5rem', cursor: 'pointer' }}>
-              Ganti Akun
-            </button>
-          </div>
-
-          <div className="pin-display">
-            {[...Array(6)].map((_, i) => {
-              const isPinFilled = i < pin.length;
-              return (
-                <span key={i} style={{
-                  display: 'block',
-                  width: '14px',
-                  height: '14px',
-                  minWidth: '14px',
-                  minHeight: '14px',
-                  borderRadius: '50%',
-                  flexShrink: 0,
-                  backgroundColor: isPinFilled ? '#10b981' : 'transparent',
-                  border: '2px solid #10b981',
-                  boxSizing: 'border-box',
-                  transition: 'background-color 0.15s ease'
-                }} />
-              );
-            })}
-          </div>
-
-          {loading && <p className="text-center text-muted mb-4">Memverifikasi...</p>}
-
-          <Numpad onKeyPress={handlePinPress} onDelete={handlePinDelete} />
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 'var(--space-sm)',
+          marginBottom: 'var(--space-lg)',
+        }}>
+          <span style={{
+            fontSize: 'var(--text-sm)',
+            color: 'var(--color-text-secondary)',
+          }}>
+            {email}
+          </span>
+          <button
+            onClick={switchAccount}
+            style={{
+              background: 'none',
+              color: 'var(--color-primary)',
+              fontSize: 'var(--text-sm)',
+              fontWeight: 'var(--font-semibold)',
+            }}
+          >
+            Ganti Akun
+          </button>
         </div>
+
+        <div style={{
+          display: 'flex',
+          gap: 'var(--space-md)',
+          justifyContent: 'center',
+          marginBottom: 'var(--space-xl)',
+        }}>
+          {[...Array(6)].map((_, i) => (
+            <span key={i} style={{
+              display: 'block',
+              width: '14px',
+              height: '14px',
+              borderRadius: 'var(--radius-full)',
+              backgroundColor: i < pin.length ? 'var(--color-primary)' : 'transparent',
+              border: '2px solid var(--color-primary)',
+              transition: 'background-color 0.15s ease',
+            }} />
+          ))}
+        </div>
+
+        {loading && (
+          <p style={{
+            color: 'var(--color-text-secondary)',
+            marginBottom: 'var(--space-md)',
+            fontSize: 'var(--text-sm)',
+          }}>
+            Memverifikasi...
+          </p>
+        )}
+
+        <Numpad onKeyPress={handlePinPress} onDelete={handlePinDelete} />
       </div>
     </PageLayout>
   );

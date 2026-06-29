@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react';
-
 import { Clock } from 'lucide-react';
 import api from '../services/api';
-import PageTransition from '../components/PageTransition';
 import PageLayout from '../components/PageLayout';
+import Card from '../components/Card';
+import Badge from '../components/Badge';
 
 export default function HistoryPage() {
-
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState('all'); // all, in, out
+  const [filter, setFilter] = useState('all');
 
   useEffect(() => {
     const fetchHistory = async () => {
@@ -25,62 +24,118 @@ export default function HistoryPage() {
     fetchHistory();
   }, []);
 
-
-
   const filteredTransactions = transactions.filter(tx => {
     if (filter === 'all') return true;
     return tx.type === filter;
   });
 
-
+  const filterButtons = [
+    { key: 'all', label: 'Semua' },
+    { key: 'in', label: 'Top Up' },
+    { key: 'out', label: 'Transfer' },
+  ];
 
   return (
-    <PageTransition>
-      <PageLayout
-        title="Riwayat"
-        subtitle="Semua riwayat transaksi kamu"
-        showBack={false}
-      >
-
-      <div className="flex gap-2 mb-6" style={{ overflowX: 'auto', paddingBottom: '4px' }}>
-        <button 
-          onClick={() => setFilter('all')} 
-          style={{ padding: '6px 16px', borderRadius: '20px', border: '1px solid #E5E7EB', background: filter === 'all' ? '#1A1A2E' : '#FFFFFF', color: filter === 'all' ? '#FFFFFF' : '#6B7280', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', whiteSpace: 'nowrap' }}>
-          Semua
-        </button>
-        <button 
-          onClick={() => setFilter('in')} 
-          style={{ padding: '6px 16px', borderRadius: '20px', border: '1px solid #E5E7EB', background: filter === 'in' ? '#10b981' : '#FFFFFF', color: filter === 'in' ? '#FFFFFF' : '#6B7280', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', whiteSpace: 'nowrap' }}>
-          Top Up
-        </button>
-        <button 
-          onClick={() => setFilter('out')} 
-          style={{ padding: '6px 16px', borderRadius: '20px', border: '1px solid #E5E7EB', background: filter === 'out' ? '#ef4444' : '#FFFFFF', color: filter === 'out' ? '#FFFFFF' : '#6B7280', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', whiteSpace: 'nowrap' }}>
-          Transfer
-        </button>
+    <PageLayout
+      title="Riwayat"
+      subtitle="Semua riwayat transaksi kamu"
+    >
+      {/* Filter Chips */}
+      <div style={{
+        display: 'flex',
+        gap: 'var(--space-sm)',
+        marginBottom: 'var(--space-lg)',
+        overflowX: 'auto',
+        paddingBottom: 'var(--space-xs)',
+      }}>
+        {filterButtons.map((btn) => (
+          <button
+            key={btn.key}
+            onClick={() => setFilter(btn.key)}
+            style={{
+              padding: '6px 16px',
+              borderRadius: 'var(--radius-full)',
+              border: '1px solid var(--color-border)',
+              background: filter === btn.key
+                ? (btn.key === 'out' ? 'var(--color-danger)' : btn.key === 'in' ? 'var(--color-primary)' : 'var(--color-text-primary)')
+                : 'var(--color-bg)',
+              color: filter === btn.key ? 'var(--color-text-inverse)' : 'var(--color-text-secondary)',
+              fontSize: 'var(--text-sm)',
+              fontWeight: 'var(--font-medium)',
+              whiteSpace: 'nowrap',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            {btn.label}
+          </button>
+        ))}
       </div>
 
       {loading ? (
-        <p className="text-center text-muted">Memuat riwayat...</p>
+        <p style={{
+          textAlign: 'center',
+          color: 'var(--color-text-secondary)',
+          fontSize: 'var(--text-sm)',
+        }}>
+          Memuat riwayat...
+        </p>
       ) : (
-        <div style={{ width: '100%', overflowX: 'auto', background: '#FFFFFF', borderRadius: '16px', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '350px' }}>
-            <thead style={{ background: '#F9FAFB', borderBottom: '1px solid #E5E7EB' }}>
-              <tr>
-                <th style={{ padding: '12px 16px', textAlign: 'left', color: '#6B7280', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase' }}>Tanggal</th>
-                <th className="hide-on-mobile" style={{ padding: '12px 16px', textAlign: 'left', color: '#6B7280', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase' }}>Keterangan</th>
-                <th style={{ padding: '12px 16px', textAlign: 'left', color: '#6B7280', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase' }}>Jenis</th>
-                <th style={{ padding: '12px 16px', textAlign: 'right', color: '#6B7280', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase' }}>Nominal</th>
+        <Card padding="0" style={{ overflow: 'hidden' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+                <th style={{
+                  padding: '12px 16px',
+                  textAlign: 'left',
+                  color: 'var(--color-text-secondary)',
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: 'var(--font-semibold)',
+                  textTransform: 'uppercase',
+                  background: 'var(--color-surface)',
+                }}>
+                  Tanggal
+                </th>
+                <th style={{
+                  padding: '12px 16px',
+                  textAlign: 'left',
+                  color: 'var(--color-text-secondary)',
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: 'var(--font-semibold)',
+                  textTransform: 'uppercase',
+                  background: 'var(--color-surface)',
+                }}>
+                  Jenis
+                </th>
+                <th style={{
+                  padding: '12px 16px',
+                  textAlign: 'right',
+                  color: 'var(--color-text-secondary)',
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: 'var(--font-semibold)',
+                  textTransform: 'uppercase',
+                  background: 'var(--color-surface)',
+                }}>
+                  Nominal
+                </th>
               </tr>
             </thead>
             <tbody>
               {filteredTransactions.length === 0 ? (
                 <tr>
-                  <td colSpan="4" style={{ padding: '2rem 1rem', textAlign: 'center' }}>
-                    <div className="flex" style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                      <Clock size={40} color="#9CA3AF" style={{ marginBottom: '0.5rem' }} />
-                      <p className="text-muted" style={{ fontSize: '14px', marginBottom: '4px' }}>Kamu belum punya transaksi.</p>
-                      <p className="text-muted" style={{ fontSize: '14px' }}>Mulai dengan Top Up saldo kamu!</p>
+                  <td colSpan="3" style={{ padding: 'var(--space-xl) var(--space-md)', textAlign: 'center' }}>
+                    <div style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: 'var(--space-sm)',
+                    }}>
+                      <Clock size={40} color="#94A3B8" />
+                      <p style={{ fontSize: 'var(--text-base)', color: 'var(--color-text-secondary)' }}>
+                        Kamu belum punya transaksi.
+                      </p>
+                      <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)' }}>
+                        Mulai dengan Top Up saldo kamu!
+                      </p>
                     </div>
                   </td>
                 </tr>
@@ -88,36 +143,40 @@ export default function HistoryPage() {
                 filteredTransactions.map((tx) => {
                   const isIncome = tx.type === 'in';
                   const sign = isIncome ? '+' : '-';
-                  
-                  // Keterangan / Title
-                  const title = isIncome ? 'Top-up saldo' : 'Transfer Keluar';
-                  const keterangan = tx.description || title;
-
-                  // Badge style
-                  const badgeBg = isIncome ? '#D1FAE5' : '#FEE2E2';
-                  const badgeColor = isIncome ? '#059669' : '#DC2626';
-                  const badgeIcon = isIncome ? '🟢' : '🔴';
-                  const badgeText = isIncome ? 'Top Up' : 'Keluar';
 
                   return (
-                    <tr 
-                      key={tx.id} 
-                      style={{ borderBottom: '1px solid #F3F4F6', transition: 'background-color 0.2s', cursor: 'default' }}
-                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F9FAFB'}
+                    <tr
+                      key={tx.id}
+                      style={{
+                        borderBottom: '1px solid var(--color-surface)',
+                        transition: 'background-color 0.2s',
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F8FAFC'}
                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                     >
-                      <td style={{ padding: '14px 16px', color: '#6B7280', fontSize: '13px', whiteSpace: 'nowrap' }}>
-                        {new Date(tx.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}, {new Date(tx.created_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace(':', '.')}
+                      <td style={{
+                        padding: '14px 16px',
+                        color: 'var(--color-text-secondary)',
+                        fontSize: 'var(--text-sm)',
+                        whiteSpace: 'nowrap',
+                      }}>
+                        {new Date(tx.created_at).toLocaleDateString('id-ID', {
+                          day: 'numeric',
+                          month: 'short',
+                          year: 'numeric',
+                        })}
                       </td>
-                      <td className="hide-on-mobile" style={{ padding: '14px 16px', color: '#1A1A2E', fontSize: '14px', whiteSpace: 'nowrap' }}>
-                        {keterangan}
+                      <td style={{ padding: '14px 16px' }}>
+                        <Badge type={isIncome ? 'topup' : 'transfer_out'} />
                       </td>
-                      <td style={{ padding: '14px 16px', whiteSpace: 'nowrap' }}>
-                        <span style={{ background: badgeBg, color: badgeColor, padding: '4px 8px', borderRadius: '12px', fontSize: '12px', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                          {badgeIcon} {badgeText}
-                        </span>
-                      </td>
-                      <td style={{ padding: '14px 16px', textAlign: 'right', color: isIncome ? '#10b981' : '#EF4444', fontSize: '14px', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                      <td style={{
+                        padding: '14px 16px',
+                        textAlign: 'right',
+                        color: isIncome ? 'var(--color-primary)' : 'var(--color-danger)',
+                        fontSize: 'var(--text-base)',
+                        fontWeight: 'var(--font-semibold)',
+                        whiteSpace: 'nowrap',
+                      }}>
                         {sign}Rp {new Intl.NumberFormat('id-ID', { minimumFractionDigits: 0 }).format(tx.amount)}
                       </td>
                     </tr>
@@ -126,9 +185,8 @@ export default function HistoryPage() {
               )}
             </tbody>
           </table>
-        </div>
+        </Card>
       )}
-      </PageLayout>
-    </PageTransition>
+    </PageLayout>
   );
 }
