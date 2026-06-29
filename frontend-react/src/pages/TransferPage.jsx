@@ -5,6 +5,7 @@ import PageLayout from '../components/PageLayout';
 import Card from '../components/Card';
 import Button from '../components/Button';
 import BackButton from '../components/BackButton';
+import Skeleton from '../components/Skeleton';
 
 export default function TransferPage() {
   const navigate = useNavigate();
@@ -122,13 +123,16 @@ export default function TransferPage() {
           </div>
         </Card>
 
-        <Button
-          type="submit"
-          disabled={loading || !isValid}
-          loading={loading}
-        >
-          Kirim Transfer
-        </Button>
+        {loading ? (
+          <Skeleton width="100%" height="52px" borderRadius="var(--radius-lg)" />
+        ) : (
+          <Button
+            type="submit"
+            disabled={!isValid}
+          >
+            Kirim Transfer
+          </Button>
+        )}
       </form>
       </div>
     </PageLayout>

@@ -4,6 +4,7 @@ import api from '../services/api';
 import PageLayout from '../components/PageLayout';
 import Card from '../components/Card';
 import Badge from '../components/Badge';
+import HistorySkeleton from '../components/skeletons/HistorySkeleton';
 
 export default function HistoryPage() {
   const [transactions, setTransactions] = useState([]);
@@ -34,6 +35,15 @@ export default function HistoryPage() {
     { key: 'in', label: 'Top Up' },
     { key: 'out', label: 'Transfer' },
   ];
+
+  if (loading) return (
+    <PageLayout
+      title="Riwayat"
+      subtitle="Semua riwayat transaksi kamu"
+    >
+      <HistorySkeleton />
+    </PageLayout>
+  );
 
   return (
     <PageLayout
@@ -71,15 +81,6 @@ export default function HistoryPage() {
         ))}
       </div>
 
-      {loading ? (
-        <p style={{
-          textAlign: 'center',
-          color: 'var(--color-text-secondary)',
-          fontSize: 'var(--text-sm)',
-        }}>
-          Memuat riwayat...
-        </p>
-      ) : (
         <Card padding="0" style={{ overflow: 'hidden' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
@@ -186,7 +187,6 @@ export default function HistoryPage() {
             </tbody>
           </table>
         </Card>
-      )}
     </PageLayout>
   );
 }

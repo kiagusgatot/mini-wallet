@@ -7,6 +7,7 @@ import Card from '../components/Card';
 import AnimatedCounter from '../components/AnimatedCounter';
 import { motion } from 'framer-motion';
 import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
+import DashboardSkeleton from '../components/skeletons/DashboardSkeleton';
 
 export default function DashboardPage() {
   const navigate = useNavigate();
@@ -80,16 +81,13 @@ export default function DashboardPage() {
   };
 
   if (loading) return (
-    <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: 'var(--color-primary)',
-      fontSize: 'var(--text-base)',
-    }}>
-      Memuat...
-    </div>
+    <PageLayout
+      title="Halo 👋"
+      subtitle="Menyiapkan data kamu..."
+      stickyHeader={false}
+    >
+      <DashboardSkeleton />
+    </PageLayout>
   );
 
   return (

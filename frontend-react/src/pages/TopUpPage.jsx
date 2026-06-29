@@ -5,6 +5,7 @@ import PageLayout from '../components/PageLayout';
 import Card from '../components/Card';
 import Button from '../components/Button';
 import BackButton from '../components/BackButton';
+import Skeleton from '../components/Skeleton';
 import { motion } from 'framer-motion';
 
 export default function TopUpPage() {
@@ -141,13 +142,16 @@ export default function TopUpPage() {
           />
         </Card>
 
-        <Button
-          type="submit"
-          disabled={loading || !amount || Number(amount) < 10000}
-          loading={loading}
-        >
-          Konfirmasi Top Up
-        </Button>
+        {loading ? (
+          <Skeleton width="100%" height="52px" borderRadius="var(--radius-lg)" />
+        ) : (
+          <Button
+            type="submit"
+            disabled={!amount || Number(amount) < 10000}
+          >
+            Konfirmasi Top Up
+          </Button>
+        )}
       </form>
       </div>
     </PageLayout>
