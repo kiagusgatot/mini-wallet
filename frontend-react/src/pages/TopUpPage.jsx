@@ -41,25 +41,30 @@ export default function TopUpPage() {
         <div className="card mb-6">
           <label className="form-label mb-2">Pilih Nominal</label>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '1.5rem' }}>
-            {presets.map((val) => (
-              <button
-                key={val}
-                type="button"
-                onClick={() => setAmount(val.toString())}
-                style={{
-                  background: amount === val.toString() ? 'rgba(16,185,129,0.1)' : '#1e293b',
-                  border: `1px solid ${amount === val.toString() ? '#10b981' : '#334155'}`,
-                  color: amount === val.toString() ? '#10b981' : '#1A1A2E',
-                  padding: '0.75rem',
-                  borderRadius: '10px',
-                  fontWeight: 600,
-                  fontSize: '0.9rem',
-                  cursor: 'pointer'
-                }}
-              >
-                Rp {val.toLocaleString('id-ID')}
-              </button>
-            ))}
+            {presets.map((val) => {
+              const isSelected = amount === val.toString();
+              return (
+                <motion.button
+                  key={val}
+                  type="button"
+                  onClick={() => setAmount(val.toString())}
+                  whileHover={!isSelected ? { backgroundColor: '#D1FAE5', color: '#059669' } : {}}
+                  style={{
+                    backgroundColor: isSelected ? '#10b981' : '#F0FDF4',
+                    border: '1.5px solid #10b981',
+                    color: isSelected ? '#FFFFFF' : '#10b981',
+                    padding: '12px 16px',
+                    borderRadius: '12px',
+                    fontWeight: 600,
+                    fontSize: '0.9rem',
+                    cursor: 'pointer',
+                    transition: 'background-color 0.2s, color 0.2s'
+                  }}
+                >
+                  Rp {val.toLocaleString('id-ID')}
+                </motion.button>
+              );
+            })}
           </div>
 
           <label className="form-label mb-2">Atau masukkan nominal khusus</label>
