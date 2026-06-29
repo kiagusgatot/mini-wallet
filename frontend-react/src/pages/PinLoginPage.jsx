@@ -48,7 +48,18 @@ export default function PinLoginPage() {
       login(res.data.token);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.message);
+      const errorMsg = err.message.toLowerCase();
+      if (errorMsg.includes('pin') || errorMsg.includes('salah') || errorMsg.includes('sesi')) {
+        setError('PIN yang kamu masukkan salah');
+      } else if (errorMsg.includes('tidak terdaftar') || errorMsg.includes('tidak ditemukan')) {
+        setError('Akun tidak ditemukan');
+      } else if (errorMsg.includes('server') || errorMsg.includes('500')) {
+        setError('Server bermasalah, coba lagi nanti');
+      } else if (errorMsg.includes('koneksi') || errorMsg.includes('internet')) {
+        setError('Tidak ada koneksi internet');
+      } else {
+        setError('PIN yang kamu masukkan salah');
+      }
       setPin(''); // Reset PIN on error
     } finally {
       setLoading(false);

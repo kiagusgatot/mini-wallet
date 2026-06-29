@@ -28,10 +28,12 @@ api.interceptors.response.use(
     if (error.response) {
       if (error.response.status === 401) {
         localStorage.removeItem('token');
-        if (window.location.pathname !== '/') {
+        const authPages = ['/', '/pin-login', '/create-pin', '/register'];
+        if (!authPages.includes(window.location.pathname)) {
           window.location.href = '/';
         }
-        return Promise.reject(new Error('Email atau password salah'));
+        // Let the component handle the specific message based on the endpoint
+        return Promise.reject(new Error(error.response.data.message || 'Sesi telah habis, silakan login kembali'));
       }
       
       if (error.response.status === 422) {
