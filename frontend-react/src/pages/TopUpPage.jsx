@@ -53,7 +53,7 @@ export default function TopUpPage() {
         alignItems: 'center',
         gap: '16px',
       }}>
-        <BackButton to="/transaksi" />
+        <BackButton to="/dashboard" />
         <div>
           <h1 style={{
             fontSize: 'var(--text-xl)',

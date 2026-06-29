@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowDown, ArrowUpRight, Plus, Send } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Plus, Send, User as UserIcon } from 'lucide-react';
 import api from '../services/api';
 import PageLayout from '../components/PageLayout';
 import Card from '../components/Card';
@@ -92,6 +92,25 @@ export default function DashboardPage() {
       title={`Halo, ${data.user?.name ?? 'Pengguna'} 👋`}
       subtitle="Selamat datang kembali"
       stickyHeader={false}
+      rightElement={
+        <button
+          onClick={() => navigate('/profile')}
+          style={{
+            width: '40px',
+            height: '40px',
+            borderRadius: '50%',
+            background: 'var(--color-primary-light)',
+            color: 'var(--color-primary)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            border: 'none',
+            cursor: 'pointer'
+          }}
+        >
+          <UserIcon size={20} />
+        </button>
+      }
     >
       {/* Balance Card */}
       <Card style={{ marginBottom: 'var(--space-lg)' }}>

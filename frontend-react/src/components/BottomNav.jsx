@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, ArrowLeftRight, Clock, User } from 'lucide-react';
+import { Home, Wallet, Send, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function BottomNav() {
@@ -7,9 +7,9 @@ export default function BottomNav() {
 
   const navItems = [
     { path: '/dashboard', label: 'Beranda', icon: Home },
-    { path: '/transfer', label: 'Transfer', icon: ArrowLeftRight },
+    { path: '/topup', label: 'Top Up', icon: Wallet },
+    { path: '/transfer', label: 'Transfer', icon: Send },
     { path: '/history', label: 'Riwayat', icon: Clock },
-    { path: '/profile', label: 'Profil', icon: User },
   ];
 
   return (

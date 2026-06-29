@@ -31,6 +31,8 @@ export default function ProfilePage() {
     <PageLayout
       title="Profil"
       subtitle="Informasi akun kamu"
+      showBack={true}
+      backTo="/dashboard"
     >
       {/* User Info Card */}
       <Card style={{ textAlign: 'center', marginBottom: 'var(--space-md)' }}>
