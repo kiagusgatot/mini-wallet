@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-export const pageVariants = {
+const pageVariants = {
   slideIn: {
     initial: { 
       opacity: 0, 

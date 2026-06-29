@@ -22,22 +22,6 @@ function AnimatedRoutes() {
   const location = useLocation();
   const isAuthRoute = location.pathname === '/' || location.pathname === '/register' || location.pathname === '/create-pin' || location.pathname === '/pin-login';
 
-  const getVariant = (pathname) => {
-    const bottomNavRoutes = [
-      '/dashboard',
-      '/topup', 
-      '/transfer',
-      '/history',
-      '/profile',
-    ];
-    
-    if (bottomNavRoutes.includes(pathname)) {
-      return 'fade';
-    }
-    
-    return 'slideIn';
-  };
-
   return (
     <>
       <AnimatePresence mode="wait">
