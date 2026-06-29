@@ -1,3 +1,5 @@
+import LoadingSpinner from './LoadingSpinner';
+
 const Button = ({
   children,
   onClick,
@@ -40,12 +42,19 @@ const Button = ({
         fontSize: 'var(--text-base)',
         fontWeight: 'var(--font-semibold)',
         transition: 'all 0.2s ease',
-        opacity: disabled ? 0.6 : 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '8px',
+        opacity: (disabled || loading) ? 0.8 : 1,
         ...variants[variant],
         ...style,
       }}
     >
-      {loading ? 'Memuat...' : children}
+      {loading && (
+        <LoadingSpinner size={18} color={variant === 'outline' || variant === 'ghost' ? 'var(--color-primary)' : '#fff'} />
+      )}
+      {loading ? 'Memproses...' : children}
     </button>
   );
 };

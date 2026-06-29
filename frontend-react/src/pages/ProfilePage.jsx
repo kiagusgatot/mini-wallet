@@ -6,7 +6,7 @@ import { useAuth } from '../hooks/useAuth';
 import PageLayout from '../components/PageLayout';
 import BackButton from '../components/BackButton';
 import Card from '../components/Card';
-import Skeleton from '../components/Skeleton';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { motion } from 'framer-motion';
 
 export default function ProfilePage() {
@@ -74,30 +74,7 @@ export default function ProfilePage() {
 
       <div style={{ padding: 'var(--space-lg) var(--app-padding-x)' }}>
         {loading ? (
-          <div>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '16px',
-              marginBottom: '24px',
-              justifyContent: 'center',
-              flexDirection: 'column',
-            }}>
-              <Skeleton 
-                width="80px" height="80px"
-                borderRadius="50%"
-              />
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Skeleton width="120px" height="24px"
-                  style={{ marginBottom: '8px' }} />
-                <Skeleton width="160px" height="16px" 
-                  style={{ marginBottom: '8px' }} />
-                <Skeleton width="100px" height="16px" />
-              </div>
-            </div>
-            <Skeleton width="100%" height="56px"
-              borderRadius="var(--radius-md)" />
-          </div>
+          <LoadingSpinner fullPage={true} />
         ) : (
           <>
             {/* User Info Card */}

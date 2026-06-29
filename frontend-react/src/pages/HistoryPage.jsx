@@ -4,7 +4,7 @@ import api from '../services/api';
 import PageLayout from '../components/PageLayout';
 import Card from '../components/Card';
 import Badge from '../components/Badge';
-import HistorySkeleton from '../components/skeletons/HistorySkeleton';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { motion } from 'framer-motion';
 
 export default function HistoryPage() {
@@ -38,12 +38,7 @@ export default function HistoryPage() {
   ];
 
   if (loading) return (
-    <PageLayout
-      title="Riwayat"
-      subtitle="Semua riwayat transaksi kamu"
-    >
-      <HistorySkeleton />
-    </PageLayout>
+    <LoadingSpinner fullPage={true} />
   );
 
   return (
