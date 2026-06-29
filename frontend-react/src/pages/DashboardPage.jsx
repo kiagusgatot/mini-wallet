@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowUp, ArrowDown, ArrowUpRight, Plus, Send } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Plus, Send } from 'lucide-react';
 import api from '../services/api';
 import PageTransition from '../components/PageTransition';
 import AnimatedCounter from '../components/AnimatedCounter';
@@ -25,7 +25,7 @@ export default function DashboardPage() {
           try {
             fetchedUser = JSON.parse(localStorage.getItem('user'));
           } catch (e) {
-            // Ignore
+            console.error(e);
           }
         }
         

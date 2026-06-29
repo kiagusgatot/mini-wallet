@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion, useSpring, useTransform } from 'framer-motion';
 
 export default function AnimatedCounter({ value }) {
-  const [currentValue, setCurrentValue] = useState(0);
+  const [currentValue] = useState(value);
   
   const spring = useSpring(currentValue, {
     mass: 1,

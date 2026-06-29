@@ -18,7 +18,9 @@ export default function TransferPage() {
       let currentUser = {};
       try {
         currentUser = JSON.parse(localStorage.getItem('user')) || {};
-      } catch (e) {}
+      } catch (err) {
+        console.error(err);
+      }
 
       if (form.to === currentUser.email || form.to === currentUser.username) {
         setLoading(false);

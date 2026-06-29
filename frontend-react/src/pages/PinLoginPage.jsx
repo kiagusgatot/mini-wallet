@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { pinApi } from '../services/api';
 import { useAuth } from '../hooks/useAuth';
 import Numpad from '../components/Numpad';
@@ -26,6 +26,7 @@ export default function PinLoginPage() {
         }, blockedUntil - now);
         return () => clearTimeout(timer);
       } else {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setBlockedUntil(null);
         setAttempts(0);
         setError('');
@@ -36,6 +37,7 @@ export default function PinLoginPage() {
   useEffect(() => {
     const savedEmail = localStorage.getItem('login_email');
     if (savedEmail) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setEmail(savedEmail);
     } else {
       navigate('/login');
@@ -59,45 +61,45 @@ export default function PinLoginPage() {
   };
 
   useEffect(() => {
+    const submitLogin = async () => {
+      setError('');
+      setLoading(true);
+      try {
+        const res = await pinApi.loginWithPin(email, pin);
+        login(res.data.token);
+        localStorage.setItem('user', JSON.stringify(res.data.user || {}));
+        navigate('/dashboard');
+      } catch (err) {
+        const errorMsg = err.message.toLowerCase();
+        if (errorMsg.includes('pin') || errorMsg.includes('salah') || errorMsg.includes('sesi')) {
+          setError('PIN yang kamu masukkan salah');
+        } else if (errorMsg.includes('tidak terdaftar') || errorMsg.includes('tidak ditemukan')) {
+          setError('Akun tidak ditemukan');
+        } else if (errorMsg.includes('server') || errorMsg.includes('500')) {
+          setError('Server bermasalah, coba lagi nanti');
+        } else if (errorMsg.includes('koneksi') || errorMsg.includes('internet')) {
+          setError('Tidak ada koneksi internet');
+        } else {
+          setError('PIN yang kamu masukkan salah');
+        }
+        
+        const newAttempts = attempts + 1;
+        setAttempts(newAttempts);
+        if (newAttempts >= 3) {
+          setBlockedUntil(Date.now() + 30000);
+          setError('Terlalu banyak percobaan. Coba lagi dalam 30 detik');
+        }
+        
+        setPin(''); // Reset PIN on error
+      } finally {
+        setLoading(false);
+      }
+    };
+
     if (pin.length === 6 && email) {
       submitLogin();
     }
-  }, [pin, email]);
-
-  const submitLogin = async () => {
-    setError('');
-    setLoading(true);
-    try {
-      const res = await pinApi.loginWithPin(email, pin);
-      login(res.data.token);
-      localStorage.setItem('user', JSON.stringify(res.data.user || {}));
-      navigate('/dashboard');
-    } catch (err) {
-      const errorMsg = err.message.toLowerCase();
-      if (errorMsg.includes('pin') || errorMsg.includes('salah') || errorMsg.includes('sesi')) {
-        setError('PIN yang kamu masukkan salah');
-      } else if (errorMsg.includes('tidak terdaftar') || errorMsg.includes('tidak ditemukan')) {
-        setError('Akun tidak ditemukan');
-      } else if (errorMsg.includes('server') || errorMsg.includes('500')) {
-        setError('Server bermasalah, coba lagi nanti');
-      } else if (errorMsg.includes('koneksi') || errorMsg.includes('internet')) {
-        setError('Tidak ada koneksi internet');
-      } else {
-        setError('PIN yang kamu masukkan salah');
-      }
-      
-      const newAttempts = attempts + 1;
-      setAttempts(newAttempts);
-      if (newAttempts >= 3) {
-        setBlockedUntil(Date.now() + 30000);
-        setError('Terlalu banyak percobaan. Coba lagi dalam 30 detik');
-      }
-      
-      setPin(''); // Reset PIN on error
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [pin, email, attempts, login, navigate]);
 
   const switchAccount = () => {
     localStorage.removeItem('login_email');

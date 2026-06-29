@@ -23,24 +23,24 @@ export default function CreatePinPage() {
   };
 
   useEffect(() => {
+    const submitPin = async () => {
+      setError('');
+      setLoading(true);
+      try {
+        await pinApi.createPin(pin);
+        navigate('/dashboard');
+      } catch (err) {
+        setError(err.message);
+        setPin(''); // Reset PIN on error
+      } finally {
+        setLoading(false);
+      }
+    };
+
     if (pin.length === 6) {
       submitPin();
     }
-  }, [pin]);
-
-  const submitPin = async () => {
-    setError('');
-    setLoading(true);
-    try {
-      await pinApi.createPin(pin);
-      navigate('/dashboard');
-    } catch (err) {
-      setError(err.message);
-      setPin(''); // Reset PIN on error
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [pin, navigate]);
 
   return (
     <div className="auth-container">

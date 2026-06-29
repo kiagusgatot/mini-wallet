@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import { Clock } from 'lucide-react';
 import api from '../services/api';
 import PageTransition from '../components/PageTransition';
 
 export default function HistoryPage() {
-  const navigate = useNavigate();
+
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all'); // all, in, out
@@ -24,19 +24,14 @@ export default function HistoryPage() {
     fetchHistory();
   }, []);
 
-  const getInitials = (name) => {
-    if (!name) return 'U';
-    return name.substring(0, 2).toUpperCase();
-  };
+
 
   const filteredTransactions = transactions.filter(tx => {
     if (filter === 'all') return true;
     return tx.type === filter;
   });
 
-  const formatCurrency = (val) => {
-    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(val);
-  };
+
 
   return (
     <PageTransition>
