@@ -16,6 +16,7 @@ export default function TopUpPage() {
     e.preventDefault();
     setError('');
     setLoading(true);
+    try {
       const numAmount = Number(amount);
       if (numAmount < 10000) return setError('Minimal Top Up adalah Rp 10.000');
       if (numAmount > 10000000) return setError('Maksimal Top Up adalah Rp 10.000.000');
@@ -70,6 +71,7 @@ export default function TopUpPage() {
                     transition: 'background-color 0.2s, color 0.2s'
                   }}
                   aria-label={`Pilih nominal Rp ${val.toLocaleString('id-ID')}`}
+                >
                   Rp {val.toLocaleString('id-ID')}
                 </motion.button>
               );

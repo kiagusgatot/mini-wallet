@@ -14,6 +14,7 @@ export default function TransferPage() {
     e.preventDefault();
     setError('');
     setLoading(true);
+    try {
       let currentUser = {};
       try {
         currentUser = JSON.parse(localStorage.getItem('user')) || {};
