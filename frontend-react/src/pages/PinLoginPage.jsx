@@ -4,6 +4,7 @@ import { pinApi } from '../services/api';
 import { useAuth } from '../hooks/useAuth';
 import Numpad from '../components/Numpad';
 import PageLayout from '../components/PageLayout';
+import BackButton from '../components/BackButton';
 
 export default function PinLoginPage() {
   const navigate = useNavigate();
@@ -108,12 +109,40 @@ export default function PinLoginPage() {
   };
 
   return (
-    <PageLayout
-      title="Masukkan PIN"
-      subtitle="Masukkan PIN 6 digit kamu"
-      showBack={true}
-      backTo="/login"
-    >
+    <PageLayout noPadding>
+      <div style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 10,
+        background: 'var(--color-bg)',
+        boxShadow: '0 1px 0 var(--color-border)',
+        padding: '16px var(--app-padding-x)',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '16px',
+      }}>
+        <BackButton to="/login" />
+        <div>
+          <h1 style={{
+            fontSize: 'var(--text-xl)',
+            fontWeight: 'var(--font-bold)',
+            color: 'var(--color-text-primary)',
+            margin: 0,
+            marginBottom: '2px',
+          }}>
+            Masukkan PIN
+          </h1>
+          <p style={{
+            fontSize: 'var(--text-sm)',
+            color: 'var(--color-text-secondary)',
+            margin: 0,
+          }}>
+            Masukkan PIN 6 digit kamu
+          </p>
+        </div>
+      </div>
+
+      <div style={{ padding: '0 var(--app-padding-x)' }}>
       <div style={{
         display: 'flex',
         flexDirection: 'column',
@@ -177,6 +206,7 @@ export default function PinLoginPage() {
         )}
 
         <Numpad onKeyPress={handlePinPress} onDelete={handlePinDelete} />
+      </div>
       </div>
     </PageLayout>
   );

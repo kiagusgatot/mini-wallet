@@ -4,6 +4,7 @@ import { LogOut, User as UserIcon } from 'lucide-react';
 import api from '../services/api';
 import { useAuth } from '../hooks/useAuth';
 import PageLayout from '../components/PageLayout';
+import BackButton from '../components/BackButton';
 import Card from '../components/Card';
 import { motion } from 'framer-motion';
 
@@ -28,13 +29,41 @@ export default function ProfilePage() {
   };
 
   return (
-    <PageLayout
-      title="Profil"
-      subtitle="Informasi akun kamu"
-      showBack={true}
-      backTo="/dashboard"
-    >
-      {/* User Info Card */}
+    <PageLayout noPadding>
+      <div style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 10,
+        background: 'var(--color-bg)',
+        boxShadow: '0 1px 0 var(--color-border)',
+        padding: '16px var(--app-padding-x)',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '16px',
+      }}>
+        <BackButton to="/dashboard" />
+        <div>
+          <h1 style={{
+            fontSize: 'var(--text-xl)',
+            fontWeight: 'var(--font-bold)',
+            color: 'var(--color-text-primary)',
+            margin: 0,
+            marginBottom: '2px',
+          }}>
+            Profil
+          </h1>
+          <p style={{
+            fontSize: 'var(--text-sm)',
+            color: 'var(--color-text-secondary)',
+            margin: 0,
+          }}>
+            Informasi akun kamu
+          </p>
+        </div>
+      </div>
+
+      <div style={{ padding: 'var(--space-lg) var(--app-padding-x)' }}>
+        {/* User Info Card */}
       <Card style={{ textAlign: 'center', marginBottom: 'var(--space-md)' }}>
         <div style={{
           width: 80,
@@ -94,6 +123,7 @@ export default function ProfilePage() {
           Keluar Akun
         </motion.button>
       </Card>
+      </div>
     </PageLayout>
   );
 }
