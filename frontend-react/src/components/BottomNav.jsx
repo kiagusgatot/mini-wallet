@@ -40,30 +40,32 @@ export default function BottomNav() {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              justifyContent: 'center',
               textDecoration: 'none',
-              color: isActive ? 'var(--color-primary)' : 'var(--color-text-muted)',
-              position: 'relative',
-              gap: 'var(--space-xs)',
+              gap: '4px',
+              paddingBottom: '4px',
             }}
           >
-            <Icon size={22} />
+            <Icon
+              size={22}
+              color={isActive ? 'var(--color-primary)' : 'var(--color-text-muted)'}
+            />
             <span style={{
               fontSize: 'var(--text-xs)',
               fontWeight: isActive ? 'var(--font-semibold)' : 'var(--font-regular)',
+              color: isActive ? 'var(--color-primary)' : 'var(--color-text-muted)',
             }}>
               {item.label}
             </span>
             {isActive && (
               <motion.div
-                layoutId="bottom-nav-indicator"
+                initial={{ opacity: 0, width: 0 }}
+                animate={{ opacity: 1, width: '24px' }}
+                transition={{ duration: 0.2 }}
                 style={{
-                  position: 'absolute',
-                  top: '-1px',
-                  width: '24px',
                   height: '3px',
+                  borderRadius: '9999px',
                   background: 'var(--color-primary)',
-                  borderRadius: '2px',
+                  marginTop: '2px',
                 }}
               />
             )}
