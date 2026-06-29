@@ -58,14 +58,18 @@ export default function BottomNav() {
             </span>
             {isActive && (
               <motion.div
-                initial={{ opacity: 0, width: 0 }}
-                animate={{ opacity: 1, width: '24px' }}
-                transition={{ duration: 0.2 }}
+                layoutId="nav-indicator"
                 style={{
+                  width: '24px',
                   height: '3px',
                   borderRadius: '9999px',
                   background: 'var(--color-primary)',
                   marginTop: '2px',
+                }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 400,
+                  damping: 30,
                 }}
               />
             )}

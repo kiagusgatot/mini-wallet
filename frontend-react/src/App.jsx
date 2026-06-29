@@ -11,6 +11,8 @@ import HistoryPage from './pages/HistoryPage';
 import ProfilePage from './pages/ProfilePage';
 import BottomNav from './components/BottomNav';
 
+import PageTransition from './components/PageTransition';
+
 function PrivateRoute({ children }) {
   const token = localStorage.getItem('token');
   return token ? children : <Navigate to="/" replace />;
@@ -20,21 +22,89 @@ function AnimatedRoutes() {
   const location = useLocation();
   const isAuthRoute = location.pathname === '/' || location.pathname === '/register' || location.pathname === '/create-pin' || location.pathname === '/pin-login';
 
+  const getVariant = (pathname) => {
+    const bottomNavRoutes = [
+      '/dashboard',
+      '/topup', 
+      '/transfer',
+      '/history',
+      '/profile',
+    ];
+    
+    if (bottomNavRoutes.includes(pathname)) {
+      return 'fade';
+    }
+    
+    return 'slideIn';
+  };
+
   return (
     <>
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
           
-          <Route path="/create-pin" element={<PrivateRoute><CreatePinPage /></PrivateRoute>} />
-          <Route path="/pin-login" element={<PinLoginPage />} />
-          
-          <Route path="/dashboard" element={<PrivateRoute><DashboardPage /></PrivateRoute>} />
-          <Route path="/topup" element={<PrivateRoute><TopUpPage /></PrivateRoute>} />
-          <Route path="/transfer" element={<PrivateRoute><TransferPage /></PrivateRoute>} />
-          <Route path="/history" element={<PrivateRoute><HistoryPage /></PrivateRoute>} />
-          <Route path="/profile" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
+          {/* Auth routes */}
+          <Route path="/" element={
+            <PageTransition variant="fade">
+              <LoginPage />
+            </PageTransition>
+          } />
+          <Route path="/register" element={
+            <PageTransition variant="slideIn">
+              <RegisterPage />
+            </PageTransition>
+          } />
+          <Route path="/create-pin" element={
+            <PrivateRoute>
+              <PageTransition variant="slideIn">
+                <CreatePinPage />
+              </PageTransition>
+            </PrivateRoute>
+          } />
+          <Route path="/pin-login" element={
+            <PageTransition variant="slideIn">
+              <PinLoginPage />
+            </PageTransition>
+          } />
+
+          {/* Main routes */}
+          <Route path="/dashboard" element={
+            <PrivateRoute>
+              <PageTransition variant="fade">
+                <DashboardPage />
+              </PageTransition>
+            </PrivateRoute>
+          } />
+          <Route path="/history" element={
+            <PrivateRoute>
+              <PageTransition variant="fade">
+                <HistoryPage />
+              </PageTransition>
+            </PrivateRoute>
+          } />
+          <Route path="/profile" element={
+            <PrivateRoute>
+              <PageTransition variant="fade">
+                <ProfilePage />
+              </PageTransition>
+            </PrivateRoute>
+          } />
+
+          {/* Detail routes */}
+          <Route path="/topup" element={
+            <PrivateRoute>
+              <PageTransition variant="slideIn">
+                <TopUpPage />
+              </PageTransition>
+            </PrivateRoute>
+          } />
+          <Route path="/transfer" element={
+            <PrivateRoute>
+              <PageTransition variant="slideIn">
+                <TransferPage />
+              </PageTransition>
+            </PrivateRoute>
+          } />
           
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
@@ -47,7 +117,17 @@ function AnimatedRoutes() {
 export default function App() {
   return (
     <BrowserRouter>
-      <AnimatedRoutes />
+      <div style={{
+        maxWidth: 'var(--app-max-width)',
+        margin: '0 auto',
+        minHeight: '100vh',
+        position: 'relative',
+        overflow: 'hidden',
+        background: 'var(--color-bg)',
+        boxShadow: 'var(--shadow-lg)',
+      }}>
+        <AnimatedRoutes />
+      </div>
     </BrowserRouter>
   );
 }

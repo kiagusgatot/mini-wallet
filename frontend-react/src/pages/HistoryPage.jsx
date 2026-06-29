@@ -5,6 +5,7 @@ import PageLayout from '../components/PageLayout';
 import Card from '../components/Card';
 import Badge from '../components/Badge';
 import HistorySkeleton from '../components/skeletons/HistorySkeleton';
+import { motion } from 'framer-motion';
 
 export default function HistoryPage() {
   const [transactions, setTransactions] = useState([]);
@@ -141,13 +142,18 @@ export default function HistoryPage() {
                   </td>
                 </tr>
               ) : (
-                filteredTransactions.map((tx) => {
+                filteredTransactions.map((tx, i) => {
                   const isIncome = tx.type === 'in';
                   const sign = isIncome ? '+' : '-';
-
                   return (
-                    <tr
+                    <motion.tr
                       key={tx.id}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ 
+                        delay: i * 0.05,
+                        duration: 0.3 
+                      }}
                       style={{
                         borderBottom: '1px solid var(--color-surface)',
                         transition: 'background-color 0.2s',
@@ -180,7 +186,7 @@ export default function HistoryPage() {
                       }}>
                         {sign}Rp {new Intl.NumberFormat('id-ID', { minimumFractionDigits: 0 }).format(tx.amount)}
                       </td>
-                    </tr>
+                    </motion.tr>
                   );
                 })
               )}
