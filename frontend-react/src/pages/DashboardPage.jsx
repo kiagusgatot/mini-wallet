@@ -20,8 +20,17 @@ export default function DashboardPage() {
           api.get('/transactions'),
           api.get('/user'),
         ]);
+        let fetchedUser = userRes.data.user || userRes.data.data;
+        if (!fetchedUser) {
+          try {
+            fetchedUser = JSON.parse(localStorage.getItem('user'));
+          } catch (e) {
+            // Ignore
+          }
+        }
+        
         setData({
-          user: userRes.data.user,
+          user: fetchedUser,
           wallet: walletRes.data.wallet,
           transactions: txRes.data.transactions || []
         });
@@ -78,7 +87,7 @@ export default function DashboardPage() {
     <PageTransition>
       <div className="flex items-center justify-between mb-6 pt-2">
         <div>
-          <h1 className="font-bold text-dark" style={{ fontSize: '1.25rem' }}>Halo, {data.user?.name} 👋</h1>
+          <h1 className="font-bold text-dark" style={{ fontSize: '1.25rem' }}>Halo, {data.user?.name ?? 'Pengguna'} 👋</h1>
           <p className="text-muted" style={{ fontSize: '0.9rem', marginTop: '4px' }}>Selamat datang kembali</p>
         </div>
       </div>
