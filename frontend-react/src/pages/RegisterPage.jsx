@@ -36,6 +36,7 @@ export default function RegisterPage() {
       
       const res = await api.post('/register', payload);
       login(res.data.token);
+      localStorage.setItem('user', JSON.stringify(res.data.user || {}));
       
       // After registration, redirect to create pin
       navigate('/create-pin');

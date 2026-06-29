@@ -46,6 +46,7 @@ export default function PinLoginPage() {
     try {
       const res = await pinApi.loginWithPin(email, pin);
       login(res.data.token);
+      localStorage.setItem('user', JSON.stringify(res.data.user || {}));
       navigate('/dashboard');
     } catch (err) {
       const errorMsg = err.message.toLowerCase();
