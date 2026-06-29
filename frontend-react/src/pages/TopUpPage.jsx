@@ -29,10 +29,10 @@ export default function TopUpPage() {
   return (
     <PageTransition>
       <div className="flex items-center mb-6 pt-2">
-        <button onClick={() => navigate(-1)} style={{ background: 'none', border: 'none', color: '#f1f5f9', fontSize: '1.2rem', padding: '0.5rem', marginLeft: '-0.5rem' }}>
+        <button onClick={() => navigate(-1)} style={{ background: 'none', border: 'none', color: '#1A1A2E', fontSize: '1.2rem', padding: '0.5rem', marginLeft: '-0.5rem' }}>
           ←
         </button>
-        <h1 className="font-bold text-white ml-2" style={{ fontSize: '1.2rem' }}>Top Up Saldo</h1>
+        <h1 className="font-bold text-dark ml-2" style={{ fontSize: '1.2rem' }}>Top Up Saldo</h1>
       </div>
 
       {error && <div className="alert alert-error">{error}</div>}
@@ -49,7 +49,7 @@ export default function TopUpPage() {
                 style={{
                   background: amount === val.toString() ? 'rgba(16,185,129,0.1)' : '#1e293b',
                   border: `1px solid ${amount === val.toString() ? '#10b981' : '#334155'}`,
-                  color: amount === val.toString() ? '#10b981' : '#f1f5f9',
+                  color: amount === val.toString() ? '#10b981' : '#1A1A2E',
                   padding: '0.75rem',
                   borderRadius: '10px',
                   fontWeight: 600,

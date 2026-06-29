@@ -29,7 +29,7 @@ export default function ProfilePage() {
   return (
     <PageTransition>
       <div className="flex items-center mb-8 pt-2">
-        <h1 className="font-bold text-white" style={{ fontSize: '1.5rem' }}>Profil</h1>
+        <h1 className="font-bold text-dark" style={{ fontSize: '1.5rem' }}>Profil</h1>
       </div>
 
       <div className="card text-center mb-6" style={{ padding: '2rem 1.5rem' }}>
@@ -40,7 +40,7 @@ export default function ProfilePage() {
         }}>
           <UserIcon size={40} />
         </div>
-        <h2 className="font-bold text-white mb-1" style={{ fontSize: '1.25rem' }}>{user?.name || 'Memuat...'}</h2>
+        <h2 className="font-bold text-dark mb-1" style={{ fontSize: '1.25rem' }}>{user?.name || 'Memuat...'}</h2>
         <p className="text-muted" style={{ fontSize: '0.9rem' }}>{user?.email}</p>
         <p className="text-muted" style={{ fontSize: '0.85rem', marginTop: '0.5rem' }}>@{user?.username}</p>
       </div>

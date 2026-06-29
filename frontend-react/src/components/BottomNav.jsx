@@ -20,8 +20,8 @@ export default function BottomNav() {
       transform: 'translateX(-50%)',
       width: '100%',
       maxWidth: '390px',
-      backgroundColor: '#1e293b',
-      borderTop: '1px solid rgba(255,255,255,0.05)',
+      backgroundColor: '#FFFFFF',
+      borderTop: '1px solid #E5E7EB',
       display: 'flex',
       justifyContent: 'space-around',
       padding: '0.75rem 0',
@@ -40,7 +40,7 @@ export default function BottomNav() {
               flexDirection: 'column',
               alignItems: 'center',
               textDecoration: 'none',
-              color: isActive ? '#10b981' : '#64748b',
+              color: isActive ? '#10b981' : '#9CA3AF',
               position: 'relative'
             }}
           >

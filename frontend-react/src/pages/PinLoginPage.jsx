@@ -74,7 +74,7 @@ export default function PinLoginPage() {
   return (
     <div className="auth-container">
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <h1 className="text-center font-bold mb-2 text-white" style={{ fontSize: '1.75rem' }}>Mini Wallet</h1>
+        <h1 className="text-center font-bold mb-2 text-dark" style={{ fontSize: '1.75rem' }}>Mini Wallet</h1>
         <p className="text-center text-muted mb-8">
           Masukkan PIN 6 Digit Anda
         </p>

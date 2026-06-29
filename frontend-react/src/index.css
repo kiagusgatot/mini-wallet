@@ -8,8 +8,8 @@
 }
 
 html, body {
-  background-color: #000000; /* Darker outer background for desktop */
-  color: #f1f5f9;
+  background-color: #F5F5F7; /* Lighter outer background for desktop */
+  color: #1A1A2E;
   font-family: 'Inter', -apple-system, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
@@ -20,10 +20,10 @@ html, body {
   max-width: 390px;
   margin: 0 auto;
   min-height: 100vh;
-  background-color: #0f172a; /* Slate 900 */
+  background-color: #F5F5F7; /* App background */
   position: relative;
   overflow-x: hidden;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  box-shadow: 0 0 20px rgba(0,0,0,0.05);
   display: flex;
   flex-direction: column;
 }
@@ -48,8 +48,9 @@ html, body {
 
 .text-center { text-align: center; }
 .text-primary { color: #10b981; }
-.text-muted { color: #94a3b8; }
-.text-white { color: #f1f5f9; }
+.text-muted { color: #6B7280; }
+.text-white { color: #ffffff; }
+.text-dark { color: #1A1A2E; }
 .text-danger { color: #ef4444; }
 
 .font-bold { font-weight: 700; }
@@ -81,17 +82,17 @@ html, body {
   font-size: 0.85rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
-  color: #94a3b8;
+  color: #6B7280;
 }
 
 .form-input {
   width: 100%;
   padding: 0.85rem 1rem;
-  border: 1px solid #334155;
+  border: 1px solid #E5E7EB;
   border-radius: 12px;
   font-size: 1rem;
-  color: #f1f5f9;
-  background: #1e293b;
+  color: #1A1A2E;
+  background: #F9FAFB;
   outline: none;
   transition: all 0.2s;
 }
@@ -102,7 +103,7 @@ html, body {
 }
 
 .form-input::placeholder {
-  color: #64748b;
+  color: #9CA3AF;
 }
 
 /* Buttons */
@@ -126,22 +127,24 @@ html, body {
 }
 
 .btn-primary:disabled {
-  background: #334155;
-  color: #94a3b8;
+  background: #E5E7EB;
+  color: #9CA3AF;
   cursor: not-allowed;
 }
 
 .btn-secondary {
-  background: #1e293b;
-  color: #f1f5f9;
+  background: #FFFFFF;
+  color: #1A1A2E;
+  border: 1px solid #E5E7EB;
 }
 
 /* Cards */
 .card {
-  background: #1e293b;
+  background: #FFFFFF;
   border-radius: 16px;
   padding: 1.25rem;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 
 /* Numpad */
@@ -156,7 +159,7 @@ html, body {
 .num-btn {
   background: transparent;
   border: none;
-  color: #f1f5f9;
+  color: #1A1A2E;
   font-size: 1.5rem;
   font-weight: 600;
   height: 64px;
@@ -181,7 +184,7 @@ html, body {
 
 .alert-error {
   background: rgba(239, 68, 68, 0.1);
-  color: #fca5a5;
+  color: #ef4444;
   border-left: 3px solid #ef4444;
 }
 

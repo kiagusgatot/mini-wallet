@@ -33,10 +33,10 @@ export default function TransferPage() {
   return (
     <PageTransition>
       <div className="flex items-center mb-6 pt-2">
-        <button onClick={() => navigate(-1)} style={{ background: 'none', border: 'none', color: '#f1f5f9', fontSize: '1.2rem', padding: '0.5rem', marginLeft: '-0.5rem' }}>
+        <button onClick={() => navigate(-1)} style={{ background: 'none', border: 'none', color: '#1A1A2E', fontSize: '1.2rem', padding: '0.5rem', marginLeft: '-0.5rem' }}>
           ←
         </button>
-        <h1 className="font-bold text-white ml-2" style={{ fontSize: '1.2rem' }}>Transfer</h1>
+        <h1 className="font-bold text-dark ml-2" style={{ fontSize: '1.2rem' }}>Transfer</h1>
       </div>
 
       {error && <div className="alert alert-error">{error}</div>}

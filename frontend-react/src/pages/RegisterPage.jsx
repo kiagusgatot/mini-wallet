@@ -48,7 +48,7 @@ export default function RegisterPage() {
 
   return (
     <div className="auth-container" style={{ padding: '2rem 1.5rem' }}>
-      <h1 className="text-center font-bold mb-2 text-white" style={{ fontSize: '1.5rem' }}>Buat Akun</h1>
+      <h1 className="text-center font-bold mb-2 text-dark" style={{ fontSize: '1.5rem' }}>Buat Akun</h1>
       <p className="text-center text-muted mb-6" style={{ fontSize: '0.9rem' }}>Daftar untuk mulai bertransaksi</p>
 
       {error && <div className="alert alert-error">{error}</div>}
