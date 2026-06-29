@@ -40,13 +40,18 @@ export default function TopUpPage() {
   };
 
   return (
-    <PageLayout>
+    <PageLayout noPadding>
+      {/* Sticky Header */}
       <div style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 10,
+        background: 'var(--color-bg)',
+        boxShadow: '0 1px 0 var(--color-border)',
+        padding: '16px var(--app-padding-x)',
         display: 'flex',
         alignItems: 'center',
         gap: '16px',
-        padding: 'var(--app-padding-top) 0 0',
-        marginBottom: 'var(--space-lg)',
       }}>
         <BackButton to="/transaksi" />
         <div>
@@ -68,9 +73,11 @@ export default function TopUpPage() {
           </p>
         </div>
       </div>
-      {error && <div className="alert-error">{error}</div>}
 
-      <form onSubmit={handleTopUp} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-lg)' }}>
+      <div style={{ padding: 'var(--space-lg) var(--app-padding-x)' }}>
+        {error && <div className="alert-error">{error}</div>}
+
+        <form onSubmit={handleTopUp} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-lg)' }}>
         <Card>
           <label style={{
             display: 'block',
@@ -142,6 +149,7 @@ export default function TopUpPage() {
           Konfirmasi Top Up
         </Button>
       </form>
+      </div>
     </PageLayout>
   );
 }

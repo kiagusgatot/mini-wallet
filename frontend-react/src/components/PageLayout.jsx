@@ -8,21 +8,29 @@ const PageLayout = ({
   rightElement,
   children,
   noPadding = false,
+  stickyHeader = true,
 }) => {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'var(--color-bg)',
+      background: 'var(--color-surface)',
       paddingBottom: 'var(--bottom-nav-height)',
     }}>
       {/* Header */}
       {(title || showBack) && (
         <div style={{
-          padding: 'var(--app-padding-top) var(--app-padding-x) 0',
-          marginBottom: 'var(--space-lg)',
+          position: stickyHeader ? 'sticky' : 'static',
+          top: 0,
+          zIndex: 10,
+          background: 'var(--color-bg)',
+          boxShadow: stickyHeader ? '0 1px 0 var(--color-border)' : 'none',
+          padding: '16px var(--app-padding-x)',
+          marginBottom: 0,
         }}>
           {showBack && (
-            <div style={{ marginBottom: 'var(--space-md)' }}>
+            <div style={{ 
+              marginBottom: '12px' 
+            }}>
               <BackButton to={backTo} />
             </div>
           )}
@@ -37,6 +45,7 @@ const PageLayout = ({
                   fontSize: 'var(--text-2xl)',
                   fontWeight: 'var(--font-bold)',
                   color: 'var(--color-text-primary)',
+                  margin: 0,
                   marginBottom: subtitle ? 'var(--space-xs)' : 0,
                 }}>
                   {title}
@@ -46,6 +55,7 @@ const PageLayout = ({
                 <p style={{
                   fontSize: 'var(--text-sm)',
                   color: 'var(--color-text-secondary)',
+                  margin: 0,
                 }}>
                   {subtitle}
                 </p>
@@ -56,9 +66,13 @@ const PageLayout = ({
         </div>
       )}
 
-      {/* Content */}
-      <div style={noPadding ? {} : {
-        padding: '0 var(--app-padding-x)',
+      {/* Content Area */}
+      <div style={{
+        background: 'var(--color-surface)',
+        minHeight: 'calc(100vh - 72px)',
+        padding: noPadding 
+          ? 0 
+          : 'var(--space-lg) var(--app-padding-x)',
       }}>
         {children}
       </div>

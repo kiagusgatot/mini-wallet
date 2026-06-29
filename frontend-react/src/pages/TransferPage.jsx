@@ -57,13 +57,18 @@ export default function TransferPage() {
   ];
 
   return (
-    <PageLayout>
+    <PageLayout noPadding>
+      {/* Sticky Header */}
       <div style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 10,
+        background: 'var(--color-bg)',
+        boxShadow: '0 1px 0 var(--color-border)',
+        padding: '16px var(--app-padding-x)',
         display: 'flex',
         alignItems: 'center',
         gap: '16px',
-        padding: 'var(--app-padding-top) 0 0',
-        marginBottom: 'var(--space-lg)',
       }}>
         <BackButton to="/transaksi" />
         <div>
@@ -85,9 +90,11 @@ export default function TransferPage() {
           </p>
         </div>
       </div>
-      {error && <div className="alert-error">{error}</div>}
 
-      <form onSubmit={handleTransfer} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-lg)' }}>
+      <div style={{ padding: 'var(--space-lg) var(--app-padding-x)' }}>
+        {error && <div className="alert-error">{error}</div>}
+
+        <form onSubmit={handleTransfer} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-lg)' }}>
         <Card>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
             {fields.map((field) => (
@@ -123,6 +130,7 @@ export default function TransferPage() {
           Kirim Transfer
         </Button>
       </form>
+      </div>
     </PageLayout>
   );
 }

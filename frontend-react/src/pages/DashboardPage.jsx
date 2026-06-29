@@ -91,6 +91,7 @@ export default function DashboardPage() {
     <PageLayout
       title={`Halo, ${data.user?.name ?? 'Pengguna'} 👋`}
       subtitle="Selamat datang kembali"
+      stickyHeader={false}
     >
       {/* Balance Card */}
       <Card style={{ marginBottom: 'var(--space-lg)' }}>
