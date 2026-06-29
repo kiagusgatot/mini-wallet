@@ -4,6 +4,7 @@ import api from '../services/api';
 import PageLayout from '../components/PageLayout';
 import Card from '../components/Card';
 import Button from '../components/Button';
+import BackButton from '../components/BackButton';
 
 export default function TransferPage() {
   const navigate = useNavigate();
@@ -56,12 +57,34 @@ export default function TransferPage() {
   ];
 
   return (
-    <PageLayout
-      title="Transfer"
-      subtitle="Kirim saldo ke pengguna lain"
-      showBack={true}
-      backTo="/transaksi"
-    >
+    <PageLayout>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '16px',
+        padding: 'var(--app-padding-top) 0 0',
+        marginBottom: 'var(--space-lg)',
+      }}>
+        <BackButton to="/transaksi" />
+        <div>
+          <h1 style={{
+            fontSize: 'var(--text-xl)',
+            fontWeight: 'var(--font-bold)',
+            color: 'var(--color-text-primary)',
+            margin: 0,
+            marginBottom: '2px',
+          }}>
+            Transfer
+          </h1>
+          <p style={{
+            fontSize: 'var(--text-sm)',
+            color: 'var(--color-text-secondary)',
+            margin: 0,
+          }}>
+            Kirim saldo ke pengguna lain
+          </p>
+        </div>
+      </div>
       {error && <div className="alert-error">{error}</div>}
 
       <form onSubmit={handleTransfer} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-lg)' }}>
