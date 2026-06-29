@@ -38,7 +38,7 @@ export default function ProfilePage() {
           display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#10b981',
           margin: '0 auto 1rem'
         }}>
-          <UserIcon size={40} />
+          <UserIcon size={40} aria-hidden="true" />
         </div>
         <h2 className="font-bold text-dark mb-1" style={{ fontSize: '1.25rem' }}>{user?.name || 'Memuat...'}</h2>
         <p className="text-muted" style={{ fontSize: '0.9rem' }}>{user?.email}</p>
@@ -47,6 +47,7 @@ export default function ProfilePage() {
 
       <div className="card p-0" style={{ overflow: 'hidden', padding: 0 }}>
         <motion.button
+          aria-label="Keluar dari akun"
           whileTap={{ backgroundColor: 'rgba(239,68,68,0.1)' }}
           onClick={handleLogout}
           style={{

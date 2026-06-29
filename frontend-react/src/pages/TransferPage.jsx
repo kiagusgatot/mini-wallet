@@ -14,12 +14,27 @@ export default function TransferPage() {
     e.preventDefault();
     setError('');
     setLoading(true);
-    try {
+      let currentUser = {};
+      try {
+        currentUser = JSON.parse(localStorage.getItem('user')) || {};
+      } catch (e) {}
+
+      if (form.to === currentUser.email || form.to === currentUser.username) {
+        setLoading(false);
+        return setError('Tidak bisa transfer ke akun sendiri');
+      }
+
+      if (!window.confirm(`Kamu akan transfer Rp ${Number(form.amount).toLocaleString('id-ID')} ke ${form.to}. Lanjutkan?`)) {
+        setLoading(false);
+        return;
+      }
+
       await api.post('/transfer', { 
         to: form.to, 
         amount: Number(form.amount), 
         description: form.description 
       });
+      window.alert('Transfer berhasil dikirim!');
       navigate('/dashboard');
     } catch (err) {
       setError(err.message);
@@ -33,7 +48,7 @@ export default function TransferPage() {
   return (
     <PageTransition>
       <div className="flex items-center mb-6 pt-2">
-        <button onClick={() => navigate(-1)} style={{ background: 'none', border: 'none', color: '#1A1A2E', fontSize: '1.2rem', padding: '0.5rem', marginLeft: '-0.5rem' }}>
+        <button aria-label="Kembali" onClick={() => navigate(-1)} style={{ background: 'none', border: 'none', color: '#1A1A2E', fontSize: '1.2rem', padding: '0.5rem', marginLeft: '-0.5rem' }}>
           ←
         </button>
         <h1 className="font-bold text-dark ml-2" style={{ fontSize: '1.2rem' }}>Transfer</h1>
@@ -44,38 +59,41 @@ export default function TransferPage() {
       <form onSubmit={handleTransfer} style={{ display: 'flex', flexDirection: 'column', height: '100%', flex: 1 }}>
         <div className="card mb-6">
           <div className="form-group">
-            <label className="form-label">Email / No. HP Tujuan</label>
+            <label htmlFor="to" className="form-label">Email / No. HP Tujuan</label>
             <input
+              id="to"
               type="text"
               className="form-input"
               value={form.to}
               onChange={(e) => setForm({ ...form, to: e.target.value })}
-              placeholder="Contoh: user@email.com atau 0812..."
+              placeholder="Email atau username penerima"
               required
             />
           </div>
 
           <div className="form-group">
-            <label className="form-label">Nominal (Rp)</label>
+            <label htmlFor="amount" className="form-label">Nominal (Rp)</label>
             <input
+              id="amount"
               type="number"
               className="form-input"
               value={form.amount}
               onChange={(e) => setForm({ ...form, amount: e.target.value })}
-              placeholder="Min. 10.000"
+              placeholder="Masukkan nominal (min. Rp 10.000)"
               min="10000"
               required
             />
           </div>
 
           <div className="form-group mb-0">
-            <label className="form-label">Catatan (Opsional)</label>
+            <label htmlFor="description" className="form-label">Catatan (Opsional)</label>
             <input
+              id="description"
               type="text"
               className="form-input"
               value={form.description}
               onChange={(e) => setForm({ ...form, description: e.target.value })}
-              placeholder="Contoh: Bayar hutang"
+              placeholder="Tambahkan catatan (opsional)"
             />
           </div>
         </div>
@@ -87,7 +105,7 @@ export default function TransferPage() {
             className="btn btn-primary"
             disabled={loading || !isValid}
           >
-            {loading ? 'Memproses...' : 'Kirim Sekarang'}
+            {loading ? 'Memproses...' : 'Kirim Transfer'}
           </motion.button>
         </div>
       </form>

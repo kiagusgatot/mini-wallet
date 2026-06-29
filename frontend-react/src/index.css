@@ -1,4 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary: #10b981;
+  --bg-main: #F5F5F7;
+  --card-bg: #FFFFFF;
+  --text-dark: #1A1A2E;
+  --text-muted: #4B5563; /* WCAG AA Contrast */
+  --border: #E5E7EB;
+  --danger: #EF4444;
+}
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -8,11 +18,13 @@
 }
 
 html, body {
-  background-color: #F5F5F7; /* Lighter outer background for desktop */
-  color: #1A1A2E;
-  font-family: 'Inter', -apple-system, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-dark);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Mobile-first App Container */
@@ -47,11 +59,11 @@ html, body {
 }
 
 .text-center { text-align: center; }
-.text-primary { color: #10b981; }
-.text-muted { color: #6B7280; }
+.text-primary { color: var(--primary); }
+.text-muted { color: var(--text-muted); }
 .text-white { color: #ffffff; }
-.text-dark { color: #1A1A2E; }
-.text-danger { color: #ef4444; }
+.text-dark { color: var(--text-dark); }
+.text-danger { color: var(--danger); }
 
 .font-bold { font-weight: 700; }
 .font-semibold { font-weight: 600; }
@@ -79,22 +91,23 @@ html, body {
 
 .form-label {
   display: block;
-  font-size: 0.85rem;
+  font-size: 14px;
   font-weight: 500;
+  color: var(--text-dark);
   margin-bottom: 0.5rem;
-  color: #6B7280;
 }
 
 .form-input {
   width: 100%;
   padding: 0.85rem 1rem;
-  border: 1px solid #E5E7EB;
   border-radius: 12px;
-  font-size: 1rem;
-  color: #1A1A2E;
-  background: #F9FAFB;
-  outline: none;
-  transition: all 0.2s;
+  border: 1.5px solid var(--border);
+  background-color: #F9FAFB;
+  color: var(--text-dark);
+  font-size: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
 .form-input:focus {
@@ -103,7 +116,7 @@ html, body {
 }
 
 .form-input::placeholder {
-  color: #9CA3AF;
+  color: #6B7280; /* Darker than #9CA3AF for WCAG AA */
 }
 
 /* Buttons */

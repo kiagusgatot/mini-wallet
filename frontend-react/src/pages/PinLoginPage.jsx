@@ -12,6 +12,26 @@ export default function PinLoginPage() {
   const [pin, setPin] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [attempts, setAttempts] = useState(0);
+  const [blockedUntil, setBlockedUntil] = useState(null);
+
+  useEffect(() => {
+    if (blockedUntil) {
+      const now = Date.now();
+      if (now < blockedUntil) {
+        const timer = setTimeout(() => {
+          setBlockedUntil(null);
+          setAttempts(0);
+          setError('');
+        }, blockedUntil - now);
+        return () => clearTimeout(timer);
+      } else {
+        setBlockedUntil(null);
+        setAttempts(0);
+        setError('');
+      }
+    }
+  }, [blockedUntil]);
 
   useEffect(() => {
     const savedEmail = localStorage.getItem('login_email');
@@ -23,6 +43,10 @@ export default function PinLoginPage() {
   }, [navigate]);
 
   const handlePinPress = (num) => {
+    if (blockedUntil) {
+      setError('Terlalu banyak percobaan. Coba lagi dalam 30 detik');
+      return;
+    }
     if (pin.length < 6) {
       setPin(prev => prev + num);
       setError('');
@@ -61,6 +85,14 @@ export default function PinLoginPage() {
       } else {
         setError('PIN yang kamu masukkan salah');
       }
+      
+      const newAttempts = attempts + 1;
+      setAttempts(newAttempts);
+      if (newAttempts >= 3) {
+        setBlockedUntil(Date.now() + 30000);
+        setError('Terlalu banyak percobaan. Coba lagi dalam 30 detik');
+      }
+      
       setPin(''); // Reset PIN on error
     } finally {
       setLoading(false);
@@ -77,7 +109,7 @@ export default function PinLoginPage() {
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <h1 className="text-center font-bold mb-2 text-dark" style={{ fontSize: '1.75rem' }}>Mini Wallet</h1>
         <p className="text-center text-muted mb-8">
-          Masukkan PIN 6 Digit Anda
+          Masukkan 6 digit PIN kamu
         </p>
 
         {error && <div className="alert alert-error">{error}</div>}

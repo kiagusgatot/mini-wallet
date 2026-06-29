@@ -56,19 +56,24 @@ export default function RegisterPage() {
 
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
         <div className="form-group mb-1">
-          <input type="text" name="name" className="form-input" placeholder="Nama Lengkap" value={form.name} onChange={handleChange} required />
+          <label htmlFor="name" className="form-label" style={{ display: 'none' }}>Nama Lengkap</label>
+          <input id="name" type="text" name="name" className="form-input" placeholder="Nama Lengkap" value={form.name} onChange={handleChange} required />
         </div>
         <div className="form-group mb-1">
-          <input type="text" name="username" className="form-input" placeholder="Username" value={form.username} onChange={handleChange} required />
+          <label htmlFor="username" className="form-label" style={{ display: 'none' }}>Username</label>
+          <input id="username" type="text" name="username" className="form-input" placeholder="Username" value={form.username} onChange={handleChange} required />
         </div>
         <div className="form-group mb-1">
-          <input type="email" name="email" className="form-input" placeholder="Email" value={form.email} onChange={handleChange} required />
+          <label htmlFor="email" className="form-label" style={{ display: 'none' }}>Email</label>
+          <input id="email" type="email" name="email" className="form-input" placeholder="contoh@email.com" value={form.email} onChange={handleChange} required />
         </div>
         <div className="form-group mb-1">
-          <input type="text" name="phone" className="form-input" placeholder="Nomor HP (Opsional)" value={form.phone} onChange={handleChange} />
+          <label htmlFor="phone" className="form-label" style={{ display: 'none' }}>Nomor HP</label>
+          <input id="phone" type="text" name="phone" className="form-input" placeholder="Nomor HP (Opsional)" value={form.phone} onChange={handleChange} />
         </div>
         <div className="form-group mb-1">
-          <input type="password" name="password" className="form-input" placeholder="Password (min 6 karakter)" value={form.password} onChange={handleChange} required />
+          <label htmlFor="password" className="form-label" style={{ display: 'none' }}>Password</label>
+          <input id="password" type="password" name="password" className="form-input" placeholder="Password (min 6 karakter)" value={form.password} onChange={handleChange} required />
         </div>
 
         <motion.button

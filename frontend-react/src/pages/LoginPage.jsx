@@ -45,13 +45,14 @@ export default function LoginPage() {
 
         <form onSubmit={submitEmail}>
           <div className="form-group">
-            <label className="form-label">Alamat Email</label>
+            <label htmlFor="email" className="form-label">Alamat Email</label>
             <input
+              id="email"
               type="email"
               className="form-input"
               value={email}
               onChange={(e) => { setEmail(e.target.value); setError(''); }}
-              placeholder="nama@email.com"
+              placeholder="contoh@email.com"
               required
             />
           </div>

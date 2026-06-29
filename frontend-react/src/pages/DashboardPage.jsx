@@ -178,7 +178,10 @@ export default function DashboardPage() {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {recentTransactions.length === 0 ? (
-            <p className="text-center text-muted py-4">Belum ada transaksi</p>
+            <div className="text-center py-4">
+              <p className="text-muted" style={{ fontSize: '0.9rem' }}>Kamu belum punya transaksi.</p>
+              <p className="text-muted" style={{ fontSize: '0.9rem' }}>Mulai dengan Top Up saldo kamu!</p>
+            </div>
           ) : (
             recentTransactions.map((tx) => {
               const isIncome = tx.type === 'in';

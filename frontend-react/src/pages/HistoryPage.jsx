@@ -81,7 +81,8 @@ export default function HistoryPage() {
                   <td colSpan="4" style={{ padding: '2rem 1rem', textAlign: 'center' }}>
                     <div className="flex" style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                       <Clock size={40} color="#9CA3AF" style={{ marginBottom: '0.5rem' }} />
-                      <p className="text-muted" style={{ fontSize: '14px' }}>Belum ada transaksi</p>
+                      <p className="text-muted" style={{ fontSize: '14px', marginBottom: '4px' }}>Kamu belum punya transaksi.</p>
+                      <p className="text-muted" style={{ fontSize: '14px' }}>Mulai dengan Top Up saldo kamu!</p>
                     </div>
                   </td>
                 </tr>
