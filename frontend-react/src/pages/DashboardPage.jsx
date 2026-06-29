@@ -6,7 +6,7 @@ import PageLayout from '../components/PageLayout';
 import Card from '../components/Card';
 import AnimatedCounter from '../components/AnimatedCounter';
 import { motion } from 'framer-motion';
-import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 
 export default function DashboardPage() {
   const navigate = useNavigate();
@@ -63,10 +63,15 @@ export default function DashboardPage() {
       const dayTx = data.transactions.filter(t => t.created_at.startsWith(dateStr));
       const totalAmount = dayTx.reduce((sum, t) => sum + parseFloat(t.amount), 0);
       
-      arr.push({ name: dayName, amount: totalAmount });
+      arr.push({ day: dayName, amount: totalAmount });
     }
     return arr;
   }, [data.transactions]);
+
+  const totalTujuhHari = chartData.reduce(
+    (acc, item) => acc + (item.amount || 0), 
+    0
+  );
 
   const recentTransactions = data.transactions.slice(0, 5);
 
@@ -244,46 +249,112 @@ export default function DashboardPage() {
       </div>
 
       {/* 7-Day Activity */}
-      <Card style={{ marginBottom: 'var(--space-md)' }}>
-        <h3 style={{
-          fontSize: 'var(--text-md)',
-          fontWeight: 'var(--font-bold)',
-          color: 'var(--color-text-primary)',
-          marginBottom: 'var(--space-md)',
+      <div style={{
+        background: 'var(--color-bg)',
+        borderRadius: 'var(--radius-lg)',
+        overflow: 'hidden',
+        boxShadow: 'var(--shadow-sm)',
+        border: '1px solid var(--color-border)',
+        marginBottom: 'var(--space-md)',
+      }}>
+
+        {/* Header Card */}
+        <div style={{
+          padding: '16px 20px 12px 20px',
         }}>
-          Aktivitas 7 Hari
-        </h3>
-        <div style={{ width: '100%', height: 180 }}>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData} margin={{ top: 5, right: 0, left: 0, bottom: 5 }}>
-              <XAxis 
-                dataKey="name" 
-                axisLine={false} 
-                tickLine={false} 
-                tick={{ fontSize: 12, fill: '#94A3B8' }} 
-                dy={10} 
+          <p style={{
+            fontSize: 'var(--text-sm)',
+            fontWeight: 'var(--font-medium)',
+            color: 'var(--color-text-secondary)',
+            margin: 0,
+            marginBottom: '4px',
+          }}>
+            Aktivitas 7 Hari
+          </p>
+          <p style={{
+            fontSize: 'var(--text-xl)',
+            fontWeight: 'var(--font-bold)',
+            color: 'var(--color-text-primary)',
+            margin: 0,
+          }}>
+            Rp {totalTujuhHari.toLocaleString('id-ID')}
+          </p>
+          <p style={{
+            fontSize: 'var(--text-xs)',
+            color: 'var(--color-text-muted)',
+            margin: '2px 0 0 0',
+          }}>
+            Total transaksi 7 hari terakhir
+          </p>
+        </div>
+
+        {/* Divider */}
+        <div style={{
+          height: '1px',
+          background: 'var(--color-border)',
+          margin: '0 20px',
+        }} />
+
+        {/* Chart Area */}
+        <div style={{
+          padding: '16px 8px 8px 8px',
+        }}>
+          <ResponsiveContainer width="100%" height={160}>
+            <BarChart 
+              data={chartData}
+              margin={{ 
+                top: 5, 
+                right: 8, 
+                left: 8, 
+                bottom: 0 
+              }}
+              barSize={28}
+            >
+              <CartesianGrid 
+                vertical={false} 
+                horizontal={false} 
               />
-              <Tooltip 
-                formatter={(value) => [`Rp ${new Intl.NumberFormat('id-ID', { minimumFractionDigits: 0 }).format(value)}`, "Nominal"]}
-                contentStyle={{
-                  borderRadius: '8px',
-                  border: 'none',
-                  background: '#0F172A',
-                  color: '#FFFFFF',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+              <XAxis
+                dataKey="day"
+                tickLine={false}
+                axisLine={false}
+                tick={{ 
+                  fill: 'var(--color-text-muted)', 
+                  fontSize: 11,
+                  fontFamily: 'Plus Jakarta Sans',
                 }}
-                itemStyle={{ color: '#FFFFFF' }}
               />
-              <Bar 
-                dataKey="amount" 
-                fill="#10b981" 
+              <Tooltip
+                cursor={{ 
+                  fill: 'var(--color-surface)',
+                  radius: 8,
+                }}
+                formatter={(value) => [
+                  `Rp ${value.toLocaleString('id-ID')}`,
+                  'Transaksi'
+                ]}
+                contentStyle={{
+                  background: 'var(--color-text-primary)',
+                  border: 'none',
+                  borderRadius: '8px',
+                  color: 'var(--color-text-inverse)',
+                  fontSize: '12px',
+                  padding: '8px 12px',
+                }}
+                labelStyle={{
+                  color: 'var(--color-text-muted)',
+                  fontSize: '11px',
+                }}
+              />
+              <Bar
+                dataKey="amount"
+                fill="var(--color-primary)"
                 radius={[6, 6, 0, 0]}
-                activeBar={{ fill: '#059669' }}
               />
             </BarChart>
           </ResponsiveContainer>
         </div>
-      </Card>
+      </div>
 
       {/* Recent Transactions */}
       <Card style={{ marginBottom: 'var(--space-md)' }}>
