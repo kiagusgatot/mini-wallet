@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import PageTransition from '../components/PageTransition';
 import { motion } from 'framer-motion';
+import BackButton from '../components/BackButton';
 
 export default function TransferPage() {
   const navigate = useNavigate();
@@ -50,11 +51,11 @@ export default function TransferPage() {
 
   return (
     <PageTransition>
-      <div className="flex items-center mb-6 pt-2">
-        <button aria-label="Kembali" onClick={() => navigate(-1)} style={{ background: 'none', border: 'none', color: '#1A1A2E', fontSize: '1.2rem', padding: '0.5rem', marginLeft: '-0.5rem' }}>
-          ←
-        </button>
-        <h1 className="font-bold text-dark ml-2" style={{ fontSize: '1.2rem' }}>Transfer</h1>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px', paddingTop: '8px' }}>
+        <BackButton />
+        <h1 style={{ fontSize: '20px', fontWeight: 700, color: '#1A1A2E', margin: 0 }}>
+          Transfer
+        </h1>
       </div>
 
       {error && <div className="alert alert-error">{error}</div>}

@@ -6,10 +6,10 @@ export default function BottomNav() {
   const location = useLocation();
 
   const navItems = [
-    { path: '/dashboard', label: 'Home', icon: Home },
+    { path: '/dashboard', label: 'Beranda', icon: Home },
     { path: '/transaksi', label: 'Transaksi', icon: ArrowLeftRight },
-    { path: '/history', label: 'History', icon: Clock },
-    { path: '/profile', label: 'Profile', icon: User },
+    { path: '/history', label: 'Riwayat', icon: Clock },
+    { path: '/profile', label: 'Profil', icon: User },
   ];
 
   return (
