@@ -197,3 +197,9 @@ html, body {
   margin: 2rem 0;
 }
 
+.hide-on-mobile { display: table-cell; }
+@media (max-width: 450px) {
+  .hide-on-mobile { display: none !important; }
+}
+
+

@@ -65,51 +65,68 @@ export default function HistoryPage() {
       {loading ? (
         <p className="text-center text-muted">Memuat riwayat...</p>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          {filteredTransactions.length === 0 ? (
-            <div className="text-center py-8">
-              <Clock size={48} color="#9CA3AF" style={{ margin: '0 auto 1rem' }} />
-              <p className="text-muted">Belum ada transaksi</p>
-            </div>
-          ) : (
-            filteredTransactions.map((tx) => {
-              const isIncome = tx.type === 'in';
-              const avatarBg = isIncome ? 'rgba(16,185,129,0.1)' : 'rgba(239,68,68,0.1)';
-              const avatarColor = isIncome ? '#10b981' : '#ef4444';
-              const sign = isIncome ? '+' : '-';
-              const title = isIncome ? 'Top Up' : 'Transfer';
-              
-              return (
-                <div key={tx.id} className="card flex items-center justify-between" style={{ padding: '1rem' }}>
-                  <div className="flex items-center gap-4">
-                    <div style={{
-                      width: 44, height: 44, borderRadius: '50%',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      background: avatarBg, color: avatarColor, fontWeight: 700, fontSize: '1.1rem'
-                    }}>
-                      {getInitials(title)}
+        <div style={{ width: '100%', overflowX: 'auto', background: '#FFFFFF', borderRadius: '16px', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '350px' }}>
+            <thead style={{ background: '#F9FAFB', borderBottom: '1px solid #E5E7EB' }}>
+              <tr>
+                <th style={{ padding: '12px 16px', textAlign: 'left', color: '#6B7280', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase' }}>Tanggal</th>
+                <th className="hide-on-mobile" style={{ padding: '12px 16px', textAlign: 'left', color: '#6B7280', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase' }}>Keterangan</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left', color: '#6B7280', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase' }}>Jenis</th>
+                <th style={{ padding: '12px 16px', textAlign: 'right', color: '#6B7280', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase' }}>Nominal</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredTransactions.length === 0 ? (
+                <tr>
+                  <td colSpan="4" style={{ padding: '2rem 1rem', textAlign: 'center' }}>
+                    <div className="flex" style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                      <Clock size={40} color="#9CA3AF" style={{ marginBottom: '0.5rem' }} />
+                      <p className="text-muted" style={{ fontSize: '14px' }}>Belum ada transaksi</p>
                     </div>
-                    <div>
-                      <p className="font-bold text-dark" style={{ fontSize: '0.95rem' }}>
-                        {title}
-                      </p>
-                      <p className="text-muted" style={{ fontSize: '0.75rem', marginTop: '0.2rem' }}>
-                        {new Date(tx.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                      </p>
-                    </div>
-                  </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <p className={`font-bold ${isIncome ? 'text-primary' : 'text-danger'}`} style={{ fontSize: '0.95rem' }}>
-                      {sign}{formatCurrency(tx.amount)}
-                    </p>
-                    {tx.description && (
-                      <p className="text-muted" style={{ fontSize: '0.7rem', marginTop: '0.2rem' }}>{tx.description}</p>
-                    )}
-                  </div>
-                </div>
-              );
-            })
-          )}
+                  </td>
+                </tr>
+              ) : (
+                filteredTransactions.map((tx) => {
+                  const isIncome = tx.type === 'in';
+                  const sign = isIncome ? '+' : '-';
+                  
+                  // Keterangan / Title
+                  const title = isIncome ? 'Top-up saldo' : 'Transfer Keluar';
+                  const keterangan = tx.description || title;
+
+                  // Badge style
+                  const badgeBg = isIncome ? '#D1FAE5' : '#FEE2E2';
+                  const badgeColor = isIncome ? '#059669' : '#DC2626';
+                  const badgeIcon = isIncome ? '🟢' : '🔴';
+                  const badgeText = isIncome ? 'Top Up' : 'Keluar';
+
+                  return (
+                    <tr 
+                      key={tx.id} 
+                      style={{ borderBottom: '1px solid #F3F4F6', transition: 'background-color 0.2s', cursor: 'default' }}
+                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F9FAFB'}
+                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                    >
+                      <td style={{ padding: '14px 16px', color: '#6B7280', fontSize: '13px', whiteSpace: 'nowrap' }}>
+                        {new Date(tx.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}, {new Date(tx.created_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace(':', '.')}
+                      </td>
+                      <td className="hide-on-mobile" style={{ padding: '14px 16px', color: '#1A1A2E', fontSize: '14px', whiteSpace: 'nowrap' }}>
+                        {keterangan}
+                      </td>
+                      <td style={{ padding: '14px 16px', whiteSpace: 'nowrap' }}>
+                        <span style={{ background: badgeBg, color: badgeColor, padding: '4px 8px', borderRadius: '12px', fontSize: '12px', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                          {badgeIcon} {badgeText}
+                        </span>
+                      </td>
+                      <td style={{ padding: '14px 16px', textAlign: 'right', color: isIncome ? '#10b981' : '#EF4444', fontSize: '14px', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                        {sign}Rp {new Intl.NumberFormat('id-ID', { minimumFractionDigits: 0 }).format(tx.amount)}
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
         </div>
       )}
     </PageTransition>
