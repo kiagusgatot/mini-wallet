@@ -164,20 +164,20 @@ export default function ProfilePage() {
               </h3>
               <Card padding="0" style={{ overflow: 'hidden' }}>
                 <div style={{ display: 'flex', borderBottom: '1px solid var(--color-surface)' }}>
-                  <div style={{ flex: 1, padding: '16px', borderRight: '1px solid var(--color-surface)', textAlign: 'center' }}>
-                    <Activity size={24} color="var(--color-primary)" style={{ marginBottom: '8px' }} />
-                    <p style={{ fontSize: 'var(--text-xl)', fontWeight: 'var(--font-bold)', color: 'var(--color-text-primary)' }}>{totalTransactions}</p>
-                    <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-secondary)' }}>Total Transaksi</p>
+                  <div style={{ flex: 1, padding: '16px 8px', borderRight: '1px solid var(--color-surface)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Activity size={24} color="var(--color-primary)" style={{ marginBottom: '12px' }} />
+                    <p style={{ fontSize: 'var(--text-base)', fontWeight: 'var(--font-bold)', color: 'var(--color-text-primary)', margin: '0 0 6px 0', lineHeight: '1.2' }}>{totalTransactions}</p>
+                    <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-secondary)', margin: 0, lineHeight: '1.4' }}>Total<br/>Transaksi</p>
                   </div>
-                  <div style={{ flex: 1, padding: '16px', textAlign: 'center' }}>
-                    <ArrowDown size={24} color="var(--color-primary)" style={{ marginBottom: '8px' }} />
-                    <p style={{ fontSize: 'var(--text-sm)', fontWeight: 'var(--font-bold)', color: 'var(--color-text-primary)', marginBottom: '2px', marginTop: '6px' }}>{formatCurrency(totalTopUp)}</p>
-                    <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-secondary)' }}>Total Top Up</p>
+                  <div style={{ flex: 1, padding: '16px 8px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <ArrowDown size={24} color="var(--color-primary)" style={{ marginBottom: '12px' }} />
+                    <p style={{ fontSize: 'var(--text-base)', fontWeight: 'var(--font-bold)', color: 'var(--color-text-primary)', margin: '0 0 6px 0', lineHeight: '1.2' }}>{formatCurrency(totalTopUp)}</p>
+                    <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-secondary)', margin: 0, lineHeight: '1.4' }}>Total<br/>Top Up</p>
                   </div>
-                  <div style={{ flex: 1, padding: '16px', borderLeft: '1px solid var(--color-surface)', textAlign: 'center' }}>
-                    <ArrowUpRight size={24} color="var(--color-danger)" style={{ marginBottom: '8px' }} />
-                    <p style={{ fontSize: 'var(--text-sm)', fontWeight: 'var(--font-bold)', color: 'var(--color-text-primary)', marginBottom: '2px', marginTop: '6px' }}>{formatCurrency(totalTransfer)}</p>
-                    <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-secondary)' }}>Total Transfer</p>
+                  <div style={{ flex: 1, padding: '16px 8px', borderLeft: '1px solid var(--color-surface)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <ArrowUpRight size={24} color="var(--color-danger)" style={{ marginBottom: '12px' }} />
+                    <p style={{ fontSize: 'var(--text-base)', fontWeight: 'var(--font-bold)', color: 'var(--color-text-primary)', margin: '0 0 6px 0', lineHeight: '1.2' }}>{formatCurrency(totalTransfer)}</p>
+                    <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-secondary)', margin: 0, lineHeight: '1.4' }}>Total<br/>Transfer</p>
                   </div>
                 </div>
               </Card>
