@@ -31,9 +31,9 @@ const BottomSheetModal = ({
         <>
           {/* Overlay */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, x: '-50%' }}
+            animate={{ opacity: 1, x: '-50%' }}
+            exit={{ opacity: 0, x: '-50%' }}
             transition={{ duration: 0.2 }}
             onClick={isLoading ? undefined : onClose}
             style={{
@@ -41,7 +41,6 @@ const BottomSheetModal = ({
               top: 0,
               bottom: 0,
               left: '50%',
-              transform: 'translateX(-50%)',
               width: '100%',
               maxWidth: 'var(--app-max-width)',
               backgroundColor: 'rgba(15, 23, 42, 0.45)',
@@ -53,15 +52,14 @@ const BottomSheetModal = ({
           <motion.div
             role="dialog"
             aria-modal="true"
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            exit={{ y: '100%' }}
+            initial={{ y: '100%', x: '-50%' }}
+            animate={{ y: 0, x: '-50%' }}
+            exit={{ y: '100%', x: '-50%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
             style={{
               position: 'fixed',
               bottom: 0,
               left: '50%',
-              transform: 'translateX(-50%)',
               width: '100%',
               maxWidth: 'var(--app-max-width)',
               backgroundColor: 'var(--color-bg)',
