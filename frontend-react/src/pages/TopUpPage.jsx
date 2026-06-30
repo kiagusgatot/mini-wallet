@@ -14,6 +14,8 @@ export default function TopUpPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [showConfirm, setShowConfirm] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [successAmount, setSuccessAmount] = useState(0);
   
   const presets = [50000, 100000, 200000, 500000];
 
@@ -34,15 +36,21 @@ export default function TopUpPage() {
     try {
       const numAmount = parseInt(amount, 10);
       await api.post('/topup', { amount: numAmount });
-      window.alert(`Top Up berhasil! Saldo bertambah Rp ${numAmount.toLocaleString('id-ID')}`);
+      
+      setSuccessAmount(numAmount);
       setShowConfirm(false);
-      navigate('/dashboard');
+      setShowSuccess(true);
     } catch (err) {
       setError(err.message);
       setShowConfirm(false);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSuccessClose = () => {
+    setShowSuccess(false);
+    navigate('/dashboard');
   };
 
   return (
@@ -188,6 +196,56 @@ export default function TopUpPage() {
             margin: 0,
           }}>
             Rp {Number(amount).toLocaleString('id-ID')}
+          </p>
+        </div>
+      </BottomSheetModal>
+
+      {/* Success Modal */}
+      <BottomSheetModal
+        isOpen={showSuccess}
+        onClose={handleSuccessClose}
+        primaryLabel="Selesai"
+        primaryAction={handleSuccessClose}
+      >
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+            <div style={{
+              width: '64px',
+              height: '64px',
+              borderRadius: '50%',
+              backgroundColor: '#D1FAE5',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'var(--color-primary)'
+            }}>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+          </div>
+          <h3 style={{
+            fontSize: 'var(--text-xl)',
+            fontWeight: 'var(--font-bold)',
+            color: 'var(--color-text-primary)',
+            margin: '0 0 8px 0',
+          }}>
+            Top Up Berhasil
+          </h3>
+          <p style={{
+            fontSize: 'var(--text-sm)',
+            color: 'var(--color-text-secondary)',
+            margin: '0 0 16px 0',
+          }}>
+            Saldo kamu bertambah sebesar
+          </p>
+          <p style={{
+            fontSize: 'var(--text-3xl)',
+            fontWeight: 'var(--font-bold)',
+            color: 'var(--color-text-primary)',
+            margin: 0,
+          }}>
+            Rp {successAmount.toLocaleString('id-ID')}
           </p>
         </div>
       </BottomSheetModal>
