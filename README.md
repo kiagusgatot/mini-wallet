@@ -60,6 +60,7 @@ Fullstack Web Development Dibimbing.id 2026.
 
 ## 📁 Struktur Project
 
+```text
 mini-wallet/
 ├── backend-laravel/
 │   ├── app/
@@ -80,12 +81,14 @@ mini-wallet/
 └── frontend-react/
     ├── src/
     │   ├── components/
+    │   │   ├── AnimatedCounter.jsx
     │   │   ├── BackButton.jsx
     │   │   ├── Badge.jsx
     │   │   ├── BottomNav.jsx
     │   │   ├── Button.jsx
     │   │   ├── Card.jsx
     │   │   ├── LoadingSpinner.jsx
+    │   │   ├── Numpad.jsx
     │   │   ├── PageLayout.jsx
     │   │   └── PageTransition.jsx
     │   ├── pages/
@@ -104,6 +107,7 @@ mini-wallet/
     │   ├── App.jsx
     │   └── index.css
     └── vercel.json
+```
 
 ---
 
