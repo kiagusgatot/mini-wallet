@@ -6,7 +6,7 @@ import PageLayout from '../components/PageLayout';
 import Card from '../components/Card';
 import AnimatedCounter from '../components/AnimatedCounter';
 import { motion } from 'framer-motion';
-import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
+import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from 'recharts';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 export default function DashboardPage() {
@@ -54,19 +54,34 @@ export default function DashboardPage() {
   }, [data.transactions]);
 
   const chartData = useMemo(() => {
-    const arr = [];
-    for (let i = 6; i >= 0; i--) {
-      const d = new Date();
-      d.setDate(d.getDate() - i);
-      const dateStr = d.toISOString().split('T')[0];
-      const dayName = new Intl.DateTimeFormat('id-ID', { weekday: 'short' }).format(d);
-      
-      const dayTx = data.transactions.filter(t => t.created_at.startsWith(dateStr));
-      const totalAmount = dayTx.reduce((sum, t) => sum + parseFloat(t.amount), 0);
-      
-      arr.push({ day: dayName, amount: totalAmount });
-    }
-    return arr;
+    const HARI = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+    const today = new Date();
+    const todayIndex = today.getDay(); 
+
+    const days = Array.from({ length: 7 }, (_, i) => {
+      const dayIndex = (todayIndex + i) % 7;
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
+      return {
+        day: HARI[dayIndex],
+        date: date,
+        amount: 0,
+        isToday: i === 0,
+        isFuture: i > 0,
+      };
+    });
+
+    data.transactions.forEach((trx) => {
+      const trxDate = new Date(trx.created_at);
+      const dayMatch = days.find((d) => 
+        d.date.toDateString() === trxDate.toDateString()
+      );
+      if (dayMatch) {
+        dayMatch.amount += parseFloat(trx.amount);
+      }
+    });
+
+    return days;
   }, [data.transactions]);
 
   const totalTujuhHari = chartData.reduce(
@@ -354,10 +369,15 @@ export default function DashboardPage() {
                     fill: 'var(--color-surface)',
                     radius: 8,
                   }}
-                  formatter={(value) => [
-                    `Rp ${value.toLocaleString('id-ID')}`,
-                    'Transaksi'
-                  ]}
+                  formatter={(value, name, props) => {
+                    const label = props.payload.isToday 
+                      ? 'Hari ini' 
+                      : props.payload.day;
+                    return [
+                      `Rp ${value.toLocaleString('id-ID')}`,
+                      label
+                    ];
+                  }}
                   contentStyle={{
                     background: 'var(--color-text-primary)',
                     border: 'none',
@@ -373,9 +393,17 @@ export default function DashboardPage() {
                 />
                 <Bar
                   dataKey="amount"
-                  fill="var(--color-primary)"
                   radius={[6, 6, 0, 0]}
-                />
+                >
+                  {chartData.map((entry, index) => (
+                    <Cell
+                      key={index}
+                      fill={entry.isToday 
+                        ? 'var(--color-primary)' 
+                        : 'var(--color-primary-light)'}
+                    />
+                  ))}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
