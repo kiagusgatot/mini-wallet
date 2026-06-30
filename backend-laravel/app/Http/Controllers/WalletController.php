@@ -13,14 +13,22 @@ class WalletController extends Controller
 {
     public function balance(Request $request)
     {
+        $wallet = $request->user()->wallet;
+        if (!$wallet) {
+            $wallet = $request->user()->wallet()->create(['balance' => 0]);
+        }
+
         return response()->json([
-            'balance' => $request->user()->wallet->balance,
+            'balance' => $wallet->balance,
         ]);
     }
 
     public function topup(TopUpRequest $request)
     {
         $wallet = $request->user()->wallet;
+        if (!$wallet) {
+            $wallet = $request->user()->wallet()->create(['balance' => 0]);
+        }
 
         $wallet->increment('balance', $request->amount);
 
@@ -40,6 +48,9 @@ class WalletController extends Controller
     public function transfer(TransferRequest $request)
     {
         $senderWallet = $request->user()->wallet;
+        if (!$senderWallet) {
+            $senderWallet = $request->user()->wallet()->create(['balance' => 0]);
+        }
 
         $recipient = User::where('email', $request->recipient)
             ->orWhere('phone', $request->recipient)
@@ -88,8 +99,12 @@ class WalletController extends Controller
 
     public function transactions(Request $request)
     {
-        $transactions = $request->user()
-            ->wallet
+        $wallet = $request->user()->wallet;
+        if (!$wallet) {
+            $wallet = $request->user()->wallet()->create(['balance' => 0]);
+        }
+
+        $transactions = $wallet
             ->transactions()
             ->latest('created_at')
             ->get();
