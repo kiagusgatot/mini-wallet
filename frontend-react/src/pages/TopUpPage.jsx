@@ -29,9 +29,10 @@ export default function TopUpPage() {
   };
 
   const executeTopUp = async () => {
+    setError('');
     setLoading(true);
     try {
-      const numAmount = Number(amount);
+      const numAmount = parseInt(amount, 10);
       await api.post('/topup', { amount: numAmount });
       window.alert(`Top Up berhasil! Saldo bertambah Rp ${numAmount.toLocaleString('id-ID')}`);
       setShowConfirm(false);

@@ -42,7 +42,8 @@ api.interceptors.response.use(
       }
 
       if (error.response.status === 500) {
-        return Promise.reject(new Error('Server sedang bermasalah, coba lagi nanti'));
+        const serverMsg = error.response.data?.message || error.response.data?.error;
+        return Promise.reject(new Error(serverMsg || 'Server sedang bermasalah, coba lagi nanti'));
       }
 
       return Promise.reject(new Error(error.response.data.message || 'Terjadi kesalahan pada sistem'));
