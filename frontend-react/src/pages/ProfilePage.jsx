@@ -248,7 +248,7 @@ export default function ProfilePage() {
             {/* Version Footer */}
             <div style={{ textAlign: 'center', marginTop: 'var(--space-lg)', opacity: 0.5 }}>
               <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-secondary)', margin: 0 }}>
-                Mini Wallet v1.0.0
+                Mini Wallet v1.0.1
               </p>
             </div>
           </div>
