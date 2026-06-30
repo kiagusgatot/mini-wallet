@@ -46,11 +46,11 @@ export default function DashboardPage() {
   }, []);
 
   const income = useMemo(() => {
-    return data.transactions.filter(t => t.type === 'in').reduce((sum, t) => sum + parseFloat(t.amount), 0);
+    return data.transactions.filter(t => t.type === 'topup' || t.type === 'transfer_in').reduce((sum, t) => sum + parseFloat(t.amount), 0);
   }, [data.transactions]);
 
   const expense = useMemo(() => {
-    return data.transactions.filter(t => t.type === 'out').reduce((sum, t) => sum + parseFloat(t.amount), 0);
+    return data.transactions.filter(t => t.type === 'transfer_out').reduce((sum, t) => sum + parseFloat(t.amount), 0);
   }, [data.transactions]);
 
   const chartData = useMemo(() => {
@@ -472,9 +472,9 @@ export default function DashboardPage() {
               </div>
             ) : (
               recentTransactions.map((tx) => {
-                const isIncome = tx.type === 'in';
+                const isIncome = tx.type === 'topup' || tx.type === 'transfer_in';
                 const sign = isIncome ? '+' : '-';
-                const title = isIncome ? 'Top Up' : 'Transfer';
+                const title = tx.type === 'topup' ? 'Top Up' : (tx.type === 'transfer_in' ? 'Transfer Masuk' : 'Transfer Keluar');
                 
                 return (
                   <div key={tx.id} style={{

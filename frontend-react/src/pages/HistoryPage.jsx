@@ -28,13 +28,15 @@ export default function HistoryPage() {
 
   const filteredTransactions = transactions.filter(tx => {
     if (filter === 'all') return true;
+    if (filter === 'topup') return tx.type === 'topup';
+    if (filter === 'transfer') return tx.type === 'transfer_out' || tx.type === 'transfer_in';
     return tx.type === filter;
   });
 
   const filterButtons = [
     { key: 'all', label: 'Semua' },
-    { key: 'in', label: 'Top Up' },
-    { key: 'out', label: 'Transfer' },
+    { key: 'topup', label: 'Top Up' },
+    { key: 'transfer', label: 'Transfer' },
   ];
 
   if (loading) return (
@@ -63,7 +65,7 @@ export default function HistoryPage() {
               borderRadius: 'var(--radius-full)',
               border: '1px solid var(--color-border)',
               background: filter === btn.key
-                ? (btn.key === 'out' ? 'var(--color-danger)' : btn.key === 'in' ? 'var(--color-primary)' : 'var(--color-text-primary)')
+                ? (btn.key === 'transfer' ? 'var(--color-danger)' : btn.key === 'topup' ? 'var(--color-primary)' : 'var(--color-text-primary)')
                 : 'var(--color-bg)',
               color: filter === btn.key ? 'var(--color-text-inverse)' : 'var(--color-text-secondary)',
               fontSize: 'var(--text-sm)',
@@ -78,115 +80,76 @@ export default function HistoryPage() {
       </div>
 
         <Card padding="0" style={{ overflow: 'hidden' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-                <th style={{
-                  padding: '12px 16px',
-                  textAlign: 'left',
-                  color: 'var(--color-text-secondary)',
-                  fontSize: 'var(--text-xs)',
-                  fontWeight: 'var(--font-semibold)',
-                  textTransform: 'uppercase',
-                  background: 'var(--color-surface)',
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {filteredTransactions.length === 0 ? (
+              <div style={{ padding: 'var(--space-xl) var(--space-md)', textAlign: 'center' }}>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: 'var(--space-sm)',
                 }}>
-                  Tanggal
-                </th>
-                <th style={{
-                  padding: '12px 16px',
-                  textAlign: 'left',
-                  color: 'var(--color-text-secondary)',
-                  fontSize: 'var(--text-xs)',
-                  fontWeight: 'var(--font-semibold)',
-                  textTransform: 'uppercase',
-                  background: 'var(--color-surface)',
-                }}>
-                  Jenis
-                </th>
-                <th style={{
-                  padding: '12px 16px',
-                  textAlign: 'right',
-                  color: 'var(--color-text-secondary)',
-                  fontSize: 'var(--text-xs)',
-                  fontWeight: 'var(--font-semibold)',
-                  textTransform: 'uppercase',
-                  background: 'var(--color-surface)',
-                }}>
-                  Nominal
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredTransactions.length === 0 ? (
-                <tr>
-                  <td colSpan="3" style={{ padding: 'var(--space-xl) var(--space-md)', textAlign: 'center' }}>
-                    <div style={{
+                  <Clock size={40} color="#94A3B8" />
+                  <p style={{ fontSize: 'var(--text-base)', color: 'var(--color-text-secondary)' }}>
+                    Kamu belum punya transaksi.
+                  </p>
+                  <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)' }}>
+                    Mulai dengan Top Up saldo kamu!
+                  </p>
+                </div>
+              </div>
+            ) : (
+              filteredTransactions.map((tx, i) => {
+                const isIncome = tx.type === 'topup' || tx.type === 'transfer_in';
+                const sign = isIncome ? '+' : '-';
+                return (
+                  <motion.div
+                    key={tx.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ 
+                      delay: i * 0.05,
+                      duration: 0.3 
+                    }}
+                    style={{
                       display: 'flex',
-                      flexDirection: 'column',
+                      justifyContent: 'space-between',
                       alignItems: 'center',
-                      gap: 'var(--space-sm)',
-                    }}>
-                      <Clock size={40} color="#94A3B8" />
-                      <p style={{ fontSize: 'var(--text-base)', color: 'var(--color-text-secondary)' }}>
-                        Kamu belum punya transaksi.
-                      </p>
-                      <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)' }}>
-                        Mulai dengan Top Up saldo kamu!
-                      </p>
-                    </div>
-                  </td>
-                </tr>
-              ) : (
-                filteredTransactions.map((tx, i) => {
-                  const isIncome = tx.type === 'in';
-                  const sign = isIncome ? '+' : '-';
-                  return (
-                    <motion.tr
-                      key={tx.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ 
-                        delay: i * 0.05,
-                        duration: 0.3 
-                      }}
-                      style={{
-                        borderBottom: '1px solid var(--color-surface)',
-                        transition: 'background-color 0.2s',
-                      }}
-                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F8FAFC'}
-                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                    >
-                      <td style={{
-                        padding: '14px 16px',
+                      padding: '16px',
+                      borderBottom: '1px solid var(--color-surface)',
+                      transition: 'background-color 0.2s',
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F8FAFC'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                  >
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '6px' }}>
+                      <p style={{
                         color: 'var(--color-text-secondary)',
-                        fontSize: 'var(--text-sm)',
-                        whiteSpace: 'nowrap',
+                        fontSize: 'var(--text-xs)',
+                        margin: 0,
                       }}>
                         {new Date(tx.created_at).toLocaleDateString('id-ID', {
                           day: 'numeric',
                           month: 'short',
                           year: 'numeric',
                         })}
-                      </td>
-                      <td style={{ padding: '14px 16px' }}>
-                        <Badge type={isIncome ? 'topup' : 'transfer_out'} />
-                      </td>
-                      <td style={{
-                        padding: '14px 16px',
-                        textAlign: 'right',
-                        color: isIncome ? 'var(--color-primary)' : 'var(--color-danger)',
-                        fontSize: 'var(--text-base)',
-                        fontWeight: 'var(--font-semibold)',
-                        whiteSpace: 'nowrap',
-                      }}>
-                        {sign}Rp {new Intl.NumberFormat('id-ID', { minimumFractionDigits: 0 }).format(tx.amount)}
-                      </td>
-                    </motion.tr>
-                  );
-                })
-              )}
-            </tbody>
-          </table>
+                      </p>
+                      <Badge type={tx.type} />
+                    </div>
+                    <div style={{
+                      textAlign: 'right',
+                      color: isIncome ? 'var(--color-primary)' : 'var(--color-danger)',
+                      fontSize: 'var(--text-base)',
+                      fontWeight: 'var(--font-semibold)',
+                      whiteSpace: 'nowrap',
+                    }}>
+                      {sign}Rp {new Intl.NumberFormat('id-ID', { minimumFractionDigits: 0 }).format(tx.amount)}
+                    </div>
+                  </motion.div>
+                );
+              })
+            )}
+          </div>
         </Card>
     </PageLayout>
   );
