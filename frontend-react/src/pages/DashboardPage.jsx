@@ -359,9 +359,10 @@ export default function DashboardPage() {
                   tickLine={false}
                   axisLine={false}
                   tick={{ 
-                    fill: 'var(--color-text-muted)', 
+                    fill: 'var(--color-text-secondary)', 
                     fontSize: 11,
                     fontFamily: 'Plus Jakarta Sans',
+                    fontWeight: 'var(--font-medium)',
                   }}
                 />
                 <Tooltip
@@ -379,16 +380,21 @@ export default function DashboardPage() {
                     ];
                   }}
                   contentStyle={{
-                    background: 'var(--color-text-primary)',
-                    border: 'none',
+                    background: '#0F172A',
+                    border: '1px solid #1E293B',
                     borderRadius: '8px',
-                    color: 'var(--color-text-inverse)',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
                     fontSize: '12px',
                     padding: '8px 12px',
                   }}
+                  itemStyle={{
+                    color: '#F8FAFC',
+                    fontWeight: 'var(--font-semibold)',
+                  }}
                   labelStyle={{
-                    color: 'var(--color-text-muted)',
+                    color: '#CBD5E1',
                     fontSize: '11px',
+                    marginBottom: '4px',
                   }}
                 />
                 <Bar
