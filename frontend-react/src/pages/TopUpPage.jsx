@@ -5,6 +5,7 @@ import PageLayout from '../components/PageLayout';
 import Card from '../components/Card';
 import Button from '../components/Button';
 import BackButton from '../components/BackButton';
+import BottomSheetModal from '../components/BottomSheetModal';
 import { motion } from 'framer-motion';
 
 export default function TopUpPage() {
@@ -12,28 +13,32 @@ export default function TopUpPage() {
   const [amount, setAmount] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showConfirm, setShowConfirm] = useState(false);
   
   const presets = [50000, 100000, 200000, 500000];
 
-  const handleTopUp = async (e) => {
+  const handleTopUpSubmit = (e) => {
     e.preventDefault();
     setError('');
+    
+    const numAmount = Number(amount);
+    if (!numAmount || numAmount < 10000) return setError('Minimal Top Up adalah Rp 10.000');
+    if (numAmount > 10000000) return setError('Maksimal Top Up adalah Rp 10.000.000');
+    
+    setShowConfirm(true);
+  };
+
+  const executeTopUp = async () => {
     setLoading(true);
     try {
       const numAmount = Number(amount);
-      if (numAmount < 10000) return setError('Minimal Top Up adalah Rp 10.000');
-      if (numAmount > 10000000) return setError('Maksimal Top Up adalah Rp 10.000.000');
-      
-      if (!window.confirm(`Kamu akan Top Up sebesar Rp ${numAmount.toLocaleString('id-ID')}. Lanjutkan?`)) {
-        setLoading(false);
-        return;
-      }
-      
       await api.post('/topup', { amount: numAmount });
       window.alert(`Top Up berhasil! Saldo bertambah Rp ${numAmount.toLocaleString('id-ID')}`);
+      setShowConfirm(false);
       navigate('/dashboard');
     } catch (err) {
       setError(err.message);
+      setShowConfirm(false);
     } finally {
       setLoading(false);
     }
@@ -77,7 +82,7 @@ export default function TopUpPage() {
       <div style={{ padding: 'var(--space-lg) var(--app-padding-x)' }}>
         {error && <div className="alert-error">{error}</div>}
 
-        <form onSubmit={handleTopUp} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-lg)' }}>
+        <form onSubmit={handleTopUpSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-lg)' }}>
         <Card>
           <label style={{
             display: 'block',
@@ -150,6 +155,41 @@ export default function TopUpPage() {
         </Button>
       </form>
       </div>
+
+      <BottomSheetModal
+        isOpen={showConfirm}
+        onClose={() => setShowConfirm(false)}
+        title="Konfirmasi Top Up"
+        description="Pastikan nominal top up sudah benar sebelum melanjutkan."
+        primaryLabel="Lanjutkan"
+        secondaryLabel="Batal"
+        primaryAction={executeTopUp}
+        secondaryAction={() => setShowConfirm(false)}
+        isLoading={loading}
+      >
+        <div style={{
+          background: 'var(--color-surface)',
+          padding: '16px',
+          borderRadius: 'var(--radius-lg)',
+          border: '1px solid var(--color-border)',
+        }}>
+          <p style={{
+            fontSize: 'var(--text-sm)',
+            color: 'var(--color-text-secondary)',
+            margin: '0 0 4px 0',
+          }}>
+            Nominal Top Up
+          </p>
+          <p style={{
+            fontSize: 'var(--text-2xl)',
+            fontWeight: 'var(--font-bold)',
+            color: 'var(--color-text-primary)',
+            margin: 0,
+          }}>
+            Rp {Number(amount).toLocaleString('id-ID')}
+          </p>
+        </div>
+      </BottomSheetModal>
     </PageLayout>
   );
 }
