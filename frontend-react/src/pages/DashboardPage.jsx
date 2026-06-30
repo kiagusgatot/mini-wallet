@@ -62,9 +62,14 @@ export default function DashboardPage() {
       const dayIndex = (todayIndex + i) % 7;
       const date = new Date(today);
       date.setDate(today.getDate() + i);
+      const fullDate = date.toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'short',
+      });
       return {
         day: HARI[dayIndex],
         date: date,
+        fullDate: fullDate,
         amount: 0,
         isToday: i === 0,
         isFuture: i > 0,
@@ -370,13 +375,18 @@ export default function DashboardPage() {
                     fill: 'var(--color-surface)',
                     radius: 8,
                   }}
-                  formatter={(value, name, props) => {
-                    const label = props.payload.isToday 
-                      ? 'Hari ini' 
-                      : props.payload.day;
+                  labelFormatter={(label, props) => {
+                    if (props && props.length > 0) {
+                      const payload = props[0].payload;
+                      const dayName = payload.isToday ? 'Hari ini' : payload.day;
+                      return `${dayName}, ${payload.fullDate}`;
+                    }
+                    return label;
+                  }}
+                  formatter={(value) => {
                     return [
                       `Rp ${value.toLocaleString('id-ID')}`,
-                      label
+                      'Total transaksi'
                     ];
                   }}
                   contentStyle={{
