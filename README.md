@@ -253,7 +253,7 @@ php artisan migrate --force
 ### Frontend (Vercel)
 - Root Directory: frontend-react
 - Environment variable:
-  VITE_API_URL=https://mini-wallet-production-b055.up.railway.app/api
+  VITE_API_URL=https://yatrapay-production.up.railway.app/api
 
 ---
 

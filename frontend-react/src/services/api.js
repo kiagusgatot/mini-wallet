@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
   // Gunakan env VITE_API_URL jika ada, kalau tidak fallback ke Railway
-  baseURL: import.meta.env.VITE_API_URL || 'https://mini-wallet-production-b055.up.railway.app/api',
+  baseURL: import.meta.env.VITE_API_URL || 'https://yatrapay-production.up.railway.app/api',
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
