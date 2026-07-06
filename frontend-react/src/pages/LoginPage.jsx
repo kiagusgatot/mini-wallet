@@ -42,20 +42,23 @@ export default function LoginPage() {
       padding: '0 var(--app-padding-x)',
       background: 'var(--color-bg)',
     }}>
-      <div style={{ marginBottom: 'var(--space-xl)' }}>
-        <div style={{ textAlign: 'center', marginBottom: 'var(--space-sm)', display: 'flex', justifyContent: 'center' }}>
-          <img src={logoUrl} alt="Yatra Pay Logo" style={{ height: '96px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }} />
-        </div>
+      <div style={{ textAlign: 'center', marginBottom: '48px', display: 'flex', justifyContent: 'center' }}>
+        <img src={logoUrl} alt="Yatra Pay Logo" style={{ height: '96px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }} />
+      </div>
+
+      <div style={{ marginBottom: 'var(--space-md)' }}>
         <p style={{
           fontSize: 'var(--text-base)',
-          color: 'var(--color-text-secondary)',
-          textAlign: 'center',
+          color: 'var(--color-text-primary)',
+          fontWeight: 'var(--font-semibold)',
+          textAlign: 'left',
+          margin: 0
         }}>
           Masukkan email untuk melanjutkan
         </p>
       </div>
 
-      {error && <div className="alert-error">{error}</div>}
+      {error && <div className="alert-error" style={{ marginBottom: 'var(--space-md)' }}>{error}</div>}
 
       <form onSubmit={submitEmail}>
         <Card style={{ marginBottom: 'var(--space-lg)' }}>
