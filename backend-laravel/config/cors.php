@@ -22,6 +22,7 @@ return [
     'allowed_origins' => [
         'http://localhost:3000',
         'https://mini-wallet-drab.vercel.app',
+        'https://yatrapay.vercel.app',
     ],
 
     'allowed_origins_patterns' => [],

@@ -3,5 +3,5 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return response()->json(['message' => 'Mini Wallet API is running.']);
+    return response()->json(['message' => 'Yatra Pay API is running.']);
 });

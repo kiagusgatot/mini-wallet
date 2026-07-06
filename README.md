@@ -1,6 +1,6 @@
 ---
 
-# 💳 Mini Wallet
+# 💳 Yatra Pay
 
 Aplikasi dompet digital fullstack yang
 dibangun dengan Laravel 13 + React.

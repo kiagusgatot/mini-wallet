@@ -4,6 +4,8 @@ import { pinApi } from '../services/api';
 import Button from '../components/Button';
 import Card from '../components/Card';
 
+import logoUrl from '../assets/logo.svg';
+
 export default function LoginPage() {
   const navigate = useNavigate();
   
@@ -41,15 +43,9 @@ export default function LoginPage() {
       background: 'var(--color-bg)',
     }}>
       <div style={{ marginBottom: 'var(--space-xl)' }}>
-        <h1 style={{
-          fontSize: 'var(--text-3xl)',
-          fontWeight: 'var(--font-bold)',
-          color: 'var(--color-text-primary)',
-          textAlign: 'center',
-          marginBottom: 'var(--space-sm)',
-        }}>
-          Mini Wallet
-        </h1>
+        <div style={{ textAlign: 'center', marginBottom: 'var(--space-sm)', display: 'flex', justifyContent: 'center' }}>
+          <img src={logoUrl} alt="Yatra Pay Logo" style={{ height: '48px' }} />
+        </div>
         <p style={{
           fontSize: 'var(--text-base)',
           color: 'var(--color-text-secondary)',
