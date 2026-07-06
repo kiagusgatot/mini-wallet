@@ -44,7 +44,7 @@ export default function LoginPage() {
     }}>
       <div style={{ marginBottom: 'var(--space-xl)' }}>
         <div style={{ textAlign: 'center', marginBottom: 'var(--space-sm)', display: 'flex', justifyContent: 'center' }}>
-          <img src={logoUrl} alt="Yatra Pay Logo" style={{ height: '48px' }} />
+          <img src={logoUrl} alt="Yatra Pay Logo" style={{ height: '96px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }} />
         </div>
         <p style={{
           fontSize: 'var(--text-base)',
