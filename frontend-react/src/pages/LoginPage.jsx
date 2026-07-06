@@ -51,7 +51,7 @@ export default function LoginPage() {
           fontSize: 'var(--text-base)',
           color: 'var(--color-text-primary)',
           fontWeight: 'var(--font-semibold)',
-          textAlign: 'left',
+          textAlign: 'center',
           margin: 0
         }}>
           Masukkan email untuk melanjutkan
