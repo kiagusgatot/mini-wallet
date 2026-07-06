@@ -13,8 +13,8 @@ Fullstack Web Development Dibimbing.id 2026.
 
 | Platform | URL |
 |----------|-----|
-| Frontend | https://mini-wallet-drab.vercel.app |
-| Backend API | https://mini-wallet-production-b055.up.railway.app |
+| Frontend | https://yatrapay.vercel.app |
+| Backend API | https://yatrapay-production.up.railway.app |
 | GitHub | https://github.com/kiagusgatot/mini-wallet |
 
 ---
@@ -22,11 +22,11 @@ Fullstack Web Development Dibimbing.id 2026.
 ## ✨ Fitur
 
 - 🔐 Autentikasi email + PIN 6 digit (ATM style)
-- 💰 Top Up saldo wallet
+- 💰 Top Up saldo wallet dengan Custom Modal Confirmation
 - 📤 Transfer ke sesama pengguna
 - 📋 Riwayat transaksi lengkap dengan filter
 - 📊 Grafik aktivitas 7 hari (Bar Chart)
-- 👤 Profil pengguna
+- 👤 Profil pengguna dengan Statistik Akun & Keamanan
 - 📱 Mobile-first design (390px)
 - 🎨 Animasi transisi halaman (Framer Motion)
 - ⏳ Loading spinner elegan
@@ -273,8 +273,8 @@ php artisan migrate --force
 Tambahkan URL frontend ke config/cors.php:
 \`\`\`php
 'allowed_origins' => [
-    'http://localhost:5173',
-    'https://mini-wallet-drab.vercel.app',
+    'http://localhost:3000',
+    'https://yatrapay.vercel.app',
 ],
 \`\`\`
 
